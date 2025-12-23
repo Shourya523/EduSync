@@ -1,0 +1,154 @@
+:root {
+  --bg-main: #faf9f7;
+  --bg-glass: rgba(255, 255, 255, 0.7);
+  --bg-hover: #f1efe9;
+
+  --text-primary: #2b2b2b;
+  --text-secondary: #6b6b6b;
+
+  --accent: #d9a441;
+  --accent-soft: #f3e8c9;
+
+  --border: rgba(0, 0, 0, 0.08);
+
+  --btn-dark: #2b2b2b;
+  --btn-light: #ffffff;
+
+  --shadow-soft: 0 6px 24px rgba(0,0,0,0.06);
+}
+
+.sd-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 56px;
+  background-color: var(--bg-glass);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  z-index: 100;
+  box-sizing: border-box;
+}
+
+.sd-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-left: 5em;
+}
+
+.logo-icon {
+  font-size: 1.5rem;
+  color: var(--accent);
+}
+
+.sd-sitename {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.sd-sitemotto {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.sd-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+  flex-wrap: wrap;
+  flex-shrink: 1;
+}
+
+.sd-theme {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--text-primary);
+  padding: 0.4rem;
+  border-radius: 10px;
+  transition: background 0.2s ease;
+}
+
+.sd-theme:hover {
+  background-color: var(--bg-hover);
+}
+
+.sd-btn {
+  font-size: 0.9rem;
+  padding: 0.55rem 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.sign-in {
+  background-color: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+}
+
+.sign-in:hover {
+  background-color: var(--bg-hover);
+}
+
+.get-started {
+  background-color: var(--text-primary);
+  color: #ffffff;
+  border: none;
+}
+
+.get-started:hover {
+  background-color: #3a3a3a;
+}
+
+@media (max-width: 1024px) {
+  .sd-wrapper {
+    padding: 0.75rem 1.25rem;
+  }
+  .sd-left {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .sd-wrapper {
+    padding: 0.5rem 0.75rem;
+  }
+
+  .sd-sitename {
+    font-size: 1rem;
+  }
+
+  .sd-sitemotto {
+    display: none;
+  }
+
+  .sd-btn {
+    padding: 0.45rem 0.75rem;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .sd-left {
+    gap: 0.5rem;
+  }
+
+  .logo-icon {
+    font-size: 1.25rem;
+  }
+
+  .sd-right {
+    gap: 0.5rem;
+  }
+}
