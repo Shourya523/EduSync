@@ -30,8 +30,8 @@ body {
     padding: 24px;
     box-sizing: border-box;
     border-right: 1px solid var(--border);
-    border-top-right-radius: 50px;
-    border-bottom-right-radius: 50px;
+    border-radius: 25px;
+    /* border-bottom-right-radius: 50px; */
     position: sticky;
     top: 0;
     transition: width 0.25s ease, padding 0.25s ease;
@@ -220,4 +220,18 @@ body {
         background: var(--accent-soft);
         color: var(--text-primary);
     }
+}
+
+.sidebar-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 0.75rem 0;
+}
+
+li.subtle {
+  opacity: 0.85;
+}
+
+li.subtle:hover {
+  opacity: 1;
 }
