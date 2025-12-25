@@ -11,6 +11,7 @@ import {
   ExternalLink 
 } from "lucide-react";
 import "./announcements.css";
+import AuthGuard from "@/src/components/AuthGuard";
 
 export default function AnnouncementsPage() {
     const [filter, setFilter] = useState("All");
@@ -23,7 +24,7 @@ export default function AnnouncementsPage() {
     ];
 
     return (
-        <section className="an-container">
+        <AuthGuard><section className="an-container">
             <header className="an-header">
                 <h1>Campus<span>Announcements</span></h1>
                 <p>Stay ahead of the curve. Never miss a deadline again.</p>
@@ -104,6 +105,6 @@ export default function AnnouncementsPage() {
             <footer className="an-footer">
                 <p>EduSync // For the hustle.</p>
             </footer>
-        </section>
+        </section></AuthGuard>
     );
 }

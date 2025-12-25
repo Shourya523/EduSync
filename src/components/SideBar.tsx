@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import SignOutButton from "./SignOutButton";
 
 export default function SideBar() {
     const [collapsed, setCollapsed] = useState(false);
@@ -25,7 +26,7 @@ export default function SideBar() {
 
     const navItems = [
         { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-        { label: "Generate Timetable", href: "/gentt", icon: FilePlus2 },
+        { label: "Timetable", href: "/timetable", icon: FilePlus2 },
         { label: "Notes.Co", href: "/notes", icon: NotebookText },
         { label: "My Shelf", href: "/shelf", icon: User2Icon },
         { label: "JCafe", href: "/jcafe", icon: Coffee },
@@ -41,7 +42,7 @@ export default function SideBar() {
                     <LayoutGrid size={24} />
                 </div>
                 <div className="header-text">
-                    <span className="header-title">EduSync</span>
+                    <a href="/home"><span className="header-title">EduSync</span></a>
                 </div>
             </div>
 
@@ -61,6 +62,7 @@ export default function SideBar() {
                     })}
                 </ul>
             </nav>
+            <SignOutButton  />
 
             <div className="sidebar-footer">
                 <button onClick={() => setCollapsed(!collapsed)}>

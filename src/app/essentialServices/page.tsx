@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import "./essential.css";
+import AuthGuard from "@/src/components/AuthGuard";
 
 type TabType = "Library" | "Buy & Sell" | "Print Out" | "Car Buddy";
 
@@ -36,7 +37,8 @@ export default function CampusEssentials() {
     };
 
     return (
-        <section className="ce-page-container">
+        <AuthGuard>
+            <section className="ce-page-container">
             <header className="ce-header">
                 <h1>Campus<span>Essentials</span></h1>
                 <p>Built by students, for the students who actually show up.</p>
@@ -116,5 +118,6 @@ export default function CampusEssentials() {
                 <p>EduSync // For the hustle.</p>
             </footer>
         </section>
+        </AuthGuard>
     );
 }

@@ -55,41 +55,15 @@ const handleGoogleLogin = async () => {
         <CardHeader>
           <CardTitle>Login to your account</CardTitle>
           <CardDescription>
-            Enter your email below to login to your account
+            Choose your google account you want to login with
           </CardDescription>
         </CardHeader>
 
         <CardContent>
           <form onSubmit={(e) => e.preventDefault()}>
             <FieldGroup>
-              <Field>
-                <FieldLabel htmlFor="email">Email</FieldLabel>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="m@example.com"
-                  disabled={false}
-                />
-              </Field>
 
               <Field>
-                <div className="flex items-center">
-                  <FieldLabel htmlFor="password">Password</FieldLabel>
-                  <a
-                    href="#"
-                    className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
-                  >
-                    Forgot your password?
-                  </a>
-                </div>
-                <Input id="password" type="password"/>
-              </Field>
-
-              <Field>
-                <Button type="submit">
-                  Login
-                </Button>
-
                 <Button
                   variant="outline"
                   type="button"

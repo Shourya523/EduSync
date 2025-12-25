@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import "./cafe.css";
+import AuthGuard from "@/src/components/AuthGuard";
 
 interface MenuItem {
     id: number;
@@ -38,14 +39,14 @@ export default function CafePage() {
     const total = cart.reduce((acc, curr) => acc + curr.item.price * curr.qty, 0);
 
     return (
-        <section className="jcafe-container">
+        <AuthGuard>
+            <section className="jcafe-container">
             <header className="jcafe-header">
                 <h1>J<span>Cafe</span></h1>
                 <p>Fuelling your study sessions with premium snacks.</p>
             </header>
 
             <div className="jcafe-content">
-                {/* LEFT SIDE: Bento Column */}
                 <div className="jcafe-left-col">
                     <div className="jcafe-card jcafe-featured">
                         <span className="jcafe-badge">Student Combo</span>
@@ -69,8 +70,6 @@ export default function CafePage() {
                         </div>
                     </div>
                 </div>
-
-                {/* RIGHT SIDE: Menu */}
                 <div className="jcafe-menu-card">
                     <div className="jcafe-menu-top">
                         <h3>Full Menu</h3>
@@ -89,8 +88,6 @@ export default function CafePage() {
                     </ul>
                 </div>
             </div>
-
-            {/* SLIDING CART */}
             <div className={`jcafe-sidebar ${isCartOpen ? "is-open" : ""}`}>
                 <div className="jcafe-sidebar-header">
                     <h3>Your Tray</h3>
@@ -119,5 +116,6 @@ export default function CafePage() {
                 )}
             </div>
         </section>
+        </AuthGuard>
     );
 }

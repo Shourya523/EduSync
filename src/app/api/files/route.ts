@@ -11,7 +11,11 @@ cloudinary.config({
 export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url)
-    const type = searchParams.get("type") as "pdf" | "video"
+    const type = searchParams.get("type") as "pdf" | "note"
+
+    if (!type) {
+      return NextResponse.json([], { status: 400 })
+    }
 
     const authHeader = req.headers.get("authorization")
     if (!authHeader?.startsWith("Bearer ")) {
@@ -37,17 +41,18 @@ export async function GET(req: Request) {
     }))
 
     return NextResponse.json(files)
-  } catch (err) {
-    console.error("File fetch error:", err)
+  } catch {
     return NextResponse.json([], { status: 500 })
   }
 }
 
 export async function DELETE(req: Request) {
   try {
-    const body = await req.json()
-    const id = body.id as string
-    const type = body.type as "pdf" | "video"
+    const { id, type } = await req.json()
+
+    if (!id || !type) {
+      return NextResponse.json({ error: "Invalid payload" }, { status: 400 })
+    }
 
     const authHeader = req.headers.get("authorization")
     if (!authHeader?.startsWith("Bearer ")) {
@@ -58,22 +63,17 @@ export async function DELETE(req: Request) {
     const decoded = await firebaseAdmin.auth().verifyIdToken(idToken)
     const uid = decoded.uid
 
-    if (!id || !type) {
-      return NextResponse.json({ error: "Invalid payload" }, { status: 400 })
-    }
-
     const expectedPrefix = `edusync/users/${uid}/${type}s/`
     if (!id.startsWith(expectedPrefix)) {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 })
     }
 
-    const resourceType = type === "pdf" ? "raw" : "video"
-
-    const result = await cloudinary.uploader.destroy(id, { resource_type: resourceType })
+    const result = await cloudinary.uploader.destroy(id, {
+      resource_type: "raw",
+    })
 
     return NextResponse.json({ success: true, result })
-  } catch (err) {
-    console.error("File delete error:", err)
+  } catch {
     return NextResponse.json({ error: "Delete failed" }, { status: 500 })
   }
 }

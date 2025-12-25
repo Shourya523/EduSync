@@ -10,7 +10,6 @@ cloudinary.config({
 
 export async function POST(req: Request) {
   try {
-    /* 1️⃣ Verify Firebase user */
     const authHeader = req.headers.get("authorization")
     if (!authHeader?.startsWith("Bearer ")) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
@@ -20,47 +19,45 @@ export async function POST(req: Request) {
     const decoded = await firebaseAdmin.auth().verifyIdToken(idToken)
     const uid = decoded.uid
 
-    /* 2️⃣ Read form data */
     const formData = await req.formData()
     const file = formData.get("file") as File
-    const type = formData.get("type") as "pdf" | "video"
+    const type = formData.get("type") as "pdf" | "note"
 
     if (!file || !type) {
       return NextResponse.json({ error: "Invalid payload" }, { status: 400 })
     }
 
-    /* 3️⃣ Build per-user folder */
-    const folder = `edusync/users/${uid}/${type}s`
+    const MAX_SIZE_MB = 20
+    if (file.size > MAX_SIZE_MB * 1024 * 1024) {
+      return NextResponse.json({ error: "File too large" }, { status: 413 })
+    }
 
     const buffer = Buffer.from(await file.arrayBuffer())
-    const originalName = file.name.replace(/\.[^/.]+$/, "")
+    const baseName = file.name.replace(/\.[^/.]+$/, "")
+    const folder = `edusync/users/${uid}/${type}s`
 
-    /* 4️⃣ Upload to Cloudinary */
     const result = await new Promise<any>((resolve, reject) => {
       cloudinary.uploader.upload_stream(
         {
           folder,
-          public_id: originalName,
-          resource_type: type === "pdf" ? "raw" : "video",
+          public_id: baseName,
+          resource_type: "raw",
           use_filename: true,
           unique_filename: false,
           overwrite: true,
         },
-        (err, res) => {
-          if (err) reject(err)
-          else resolve(res)
-        }
+        (err, res) => (err ? reject(err) : resolve(res))
       ).end(buffer)
     })
 
     return NextResponse.json({
       success: true,
+      id: result.public_id,
       url: result.secure_url,
       name: file.name,
-      uid,
+      type,
     })
-  } catch (err) {
-    console.error("Upload error:", err)
+  } catch (error) {
     return NextResponse.json({ error: "Upload failed" }, { status: 500 })
   }
 }

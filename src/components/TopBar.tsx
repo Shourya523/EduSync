@@ -1,9 +1,39 @@
+"use client"
 import "./TopBar.css";
 import { Sun, Brain } from "lucide-react";
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth"
+import { auth } from "@/src/lib/firebase"
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+
+
+
 export default function TopBar() {
+    const [loading, setLoading] = useState(false)
+    const router=useRouter();
+
+    const handleGoogleLogin = async () => {
+        try {
+            setLoading(true)
+
+            const provider = new GoogleAuthProvider()
+            const result = await signInWithPopup(auth, provider)
+            const idToken = await result.user.getIdToken()
+
+            await fetch("/api/auth/firebase/google", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ idToken }),
+            })
+        } catch (err) {
+            console.error("Google login failed", err)
+        } finally {
+            setLoading(false)
+            router.push("/dashboard")
+        }
+    }
     return (
         <header className="sd-wrapper">
-            {/* Left Side: Logo + Title */}
             <div className="sd-left">
                 <div className="sd-logo">
                     <div className="sd-logo">
@@ -17,11 +47,10 @@ export default function TopBar() {
             </div>
 
             <div className="sd-right">
-                <button className="sd-theme">
-                    <Sun size={18} />
-                </button>
-                <button className="sd-btn sign-in">Sign In</button>
-                <button className="sd-btn get-started">Get Started</button>
+                <button className="sd-btn sign-in" onClick={handleGoogleLogin}
+                    disabled={loading}
+                >
+                    {loading ? "Signing in..." : "Login with Google"}</button>
             </div>
         </header>
     );
