@@ -46,7 +46,7 @@ body::before {
   /* If the sidebar is part of the flex container, 
      you might NOT need margin-left. 
      Try removing it if there is a huge gap. */
-  /* margin-left: 200px; */ 
+  margin-left: 150px; 
   padding: 2.5rem 3rem;
   box-sizing: border-box;
 }

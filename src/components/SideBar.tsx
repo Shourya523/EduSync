@@ -1,15 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./SideBar.css";
 import {
     LayoutGrid,
     LayoutDashboard,
     FilePlus2,
-    Sparkles,
     NotebookText,
     Bell,
-    ShoppingCart,
     Coffee,
     Briefcase,
     HelpCircle,
@@ -21,8 +19,24 @@ import { usePathname } from "next/navigation";
 import SignOutButton from "./SignOutButton";
 
 export default function SideBar() {
+    // 1. Initialize state as false (expanded) by default to prevent hydration errors
     const [collapsed, setCollapsed] = useState(false);
     const pathname = usePathname();
+
+    // 2. On component mount, check localStorage for saved preference
+    useEffect(() => {
+        const savedState = localStorage.getItem("sidebar-collapsed");
+        if (savedState !== null) {
+            setCollapsed(JSON.parse(savedState));
+        }
+    }, []);
+
+    // 3. Create a toggle function that updates both State and LocalStorage
+    const toggleSidebar = () => {
+        const newState = !collapsed;
+        setCollapsed(newState);
+        localStorage.setItem("sidebar-collapsed", JSON.stringify(newState));
+    };
 
     const navItems = [
         { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
@@ -62,10 +76,13 @@ export default function SideBar() {
                     })}
                 </ul>
             </nav>
-            <SignOutButton  />
+            
+            {/* Pass the collapsed state to SignOutButton */}
+            <SignOutButton collapsed={collapsed} />
 
             <div className="sidebar-footer">
-                <button onClick={() => setCollapsed(!collapsed)}>
+                {/* Use the new toggleSidebar function */}
+                <button onClick={toggleSidebar}>
                     <Menu size={20} />
                     <span className="label">
                         {collapsed ? "Expand" : "Collapse"}

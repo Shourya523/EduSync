@@ -42,7 +42,7 @@ body::before {
 
 .announcements-main {
   flex: 1;
-  margin-left: 0px;
+  margin-left: 120px;
   padding: 2.5rem 3rem;
   box-sizing: border-box;
 }

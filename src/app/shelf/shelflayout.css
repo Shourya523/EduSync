@@ -28,7 +28,7 @@ body {
 
 .shelf-main {
   flex: 1;
-  margin-left: 10px;
+  margin-left: 150px;
   padding: 2.5rem 3rem;
   box-sizing: border-box;
 }

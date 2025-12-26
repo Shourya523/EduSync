@@ -13,6 +13,9 @@
 
   transition: background 0.15s ease, color 0.15s ease;
   cursor: pointer;
+  
+  /* Keeps layout stable */
+  white-space: nowrap;
 }
 
 .signout-btn:hover {
@@ -21,4 +24,20 @@
 
 .signout-icon {
   color: #dc2626;
+  /* Important: prevents the icon from squishing if the container gets too small */
+  flex-shrink: 0; 
+}
+
+.signout-text {
+  font-size: 14px;
+}
+
+/* --- Collapsed State --- */
+
+.signout-btn.collapsed {
+  /* Since the text span is removed, this centers the icon */
+  justify-content: center; 
+  
+  /* Adjust padding to look good as a square/icon-only button */
+  padding: 10px; 
 }
