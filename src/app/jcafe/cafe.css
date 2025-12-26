@@ -1,6 +1,40 @@
 .jcafe-container {
     padding: 3rem 4rem;
     max-width: 1400px;
+    /* Add transition for smooth shifting */
+    transition: padding-right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* When the cart is open, add padding to push content left */
+.jcafe-container.is-shifted {
+    padding-right: 420px; /* Matches sidebar width + extra breathing room */
+}
+
+.jcafe-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.cart-trigger {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #1a1a1a;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 50px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.cart-trigger:hover {
+    transform: translateY(-2px);
 }
 
 .jcafe-header h1 {
@@ -10,7 +44,7 @@
 }
 
 .jcafe-header h1 span {
-    color: #d4a373; /* Gold accent from Shelf */
+    color: #d4a373;
 }
 
 .jcafe-header p {
@@ -20,10 +54,17 @@
 
 .jcafe-content {
     display: grid;
-    grid-template-columns: 1fr 420px;
+    /* Changed to auto-fit to handle the squeeze better */
+    grid-template-columns: 1fr 400px; 
     gap: 2rem;
     margin-top: 3.5rem;
-    align-items: start; /* CRITICAL: Stops cards from stretching */
+    align-items: start;
+    transition: all 0.4s ease;
+}
+
+/* When shifted, we might want the grid to adjust if screen is small */
+.jcafe-container.is-shifted .jcafe-content {
+    gap: 1.5rem;
 }
 
 .jcafe-left-col {
@@ -32,7 +73,6 @@
     gap: 1.5rem;
 }
 
-/* Base Card Style */
 .jcafe-card {
     background: #fff;
     border: 1px solid #f0f0f0;
@@ -46,7 +86,6 @@
     box-shadow: 0 10px 30px rgba(0,0,0,0.04);
 }
 
-/* Featured Combo Card */
 .jcafe-featured {
     background: linear-gradient(145deg, #fffcf5 0%, #ffffff 100%);
     border: 1px solid #faedcd;
@@ -73,7 +112,6 @@
     cursor: pointer;
 }
 
-/* Bento Grid for Rewards/Reorder */
 .jcafe-bento-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -101,7 +139,6 @@
     margin-top: 4px;
 }
 
-/* Menu Card Style */
 .jcafe-menu-card {
     background: #fff;
     border: 1px solid #f0f0f0;
@@ -132,6 +169,7 @@
     border-radius: 15px;
     cursor: pointer;
     margin-bottom: 0.5rem;
+    transition: background 0.2s;
 }
 
 .jcafe-list-item:hover {
@@ -167,20 +205,86 @@
 /* Sidebar Styles */
 .jcafe-sidebar {
     position: fixed;
-    right: -450px;
+    right: -420px; /* Matches width */
     top: 0;
     width: 400px;
     height: 100vh;
     background: white;
     box-shadow: -20px 0 50px rgba(0,0,0,0.05);
     z-index: 1000;
-    transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     padding: 2.5rem;
     display: flex;
     flex-direction: column;
+    box-sizing: border-box;
+    border-left: 1px solid #f0f0f0;
 }
 
 .jcafe-sidebar.is-open { right: 0; }
+
+.jcafe-sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.jcafe-sidebar-header h3 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.close-btn, .remove-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.close-btn:hover, .remove-btn:hover {
+    background: #f5f5f5;
+}
+
+.jcafe-cart-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #f8f8f8;
+}
+
+.cart-item-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+}
+
+.qty-badge {
+    background: #f3f4f6;
+    font-size: 0.8rem;
+    padding: 2px 8px;
+    border-radius: 6px;
+    color: #666;
+}
+
+.cart-item-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.jcafe-sidebar-footer {
+    margin-top: auto;
+    padding-top: 2rem;
+    border-top: 1px dashed #e5e5e5;
+}
 
 .jcafe-total-row {
     display: flex;
@@ -199,4 +303,9 @@
     border-radius: 16px;
     font-weight: 700;
     cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.jcafe-checkout-btn:hover {
+    opacity: 0.9;
 }
