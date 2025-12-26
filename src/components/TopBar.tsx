@@ -29,7 +29,7 @@ export default function TopBar() {
             console.error("Google login failed", err)
         } finally {
             setLoading(false)
-            router.push("/dashboard")
+            router.push("/login")
         }
     }
     return (

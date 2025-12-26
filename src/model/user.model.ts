@@ -1,6 +1,5 @@
 import mongoose, { Schema, Document } from "mongoose"
 
-/* ---------- Sub-schema: YouTube Links ---------- */
 export interface YouTubeLink {
   title: string
   url: string
@@ -22,18 +21,24 @@ const YouTubeLinkSchema = new Schema<YouTubeLink>({
   },
 })
 
-/* ---------- Main User Interface ---------- */
 export interface User extends Document {
-  uid: string            // Firebase UID (primary identity)
+  uid: string
   name?: string
   email?: string
   avatar?: string
+  phoneNo: {
+    type: String,
+    unique: true,
+    sparse: true,
+  },
+
   youtubeLinks: YouTubeLink[]
   createdAt: Date
   updatedAt: Date
+
 }
 
-/* ---------- User Schema ---------- */
+
 const UserSchema = new Schema<User>(
   {
     uid: {
@@ -42,33 +47,23 @@ const UserSchema = new Schema<User>(
       unique: true,
       index: true,
     },
-
-    name: {
+    name: { type: String, trim: true },
+    email: { type: String, trim: true, lowercase: true },
+    avatar: { type: String },
+    phoneNo: {
       type: String,
-      trim: true,
+      unique: true,
+      sparse: true,
     },
-
-    email: {
-      type: String,
-      trim: true,
-      lowercase: true,
-    },
-
-    avatar: {
-      type: String,
-    },
-
     youtubeLinks: {
       type: [YouTubeLinkSchema],
       default: [],
     },
   },
-  {
-    timestamps: true, // adds createdAt & updatedAt
-  }
+  { timestamps: true }
 )
 
-/* ---------- Model Export ---------- */
+
 export const UserModel =
   mongoose.models.User ||
   mongoose.model<User>("User", UserSchema)

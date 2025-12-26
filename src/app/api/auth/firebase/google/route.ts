@@ -13,6 +13,7 @@ export async function POST(req: Request) {
         { status: 400 }
       )
     }
+
     const decodedToken = await firebaseAdmin
       .auth()
       .verifyIdToken(idToken)
@@ -24,20 +25,23 @@ export async function POST(req: Request) {
     const user = await UserModel.findOneAndUpdate(
       { uid },
       {
-        uid,
-        email,
-        name,
-        avatar: picture,
+        $setOnInsert: {
+          uid,
+          email,
+          name,
+          avatar: picture,
+        },
       },
       {
-        new: true, 
-        upsert: true,  
-        setDefaultsOnInsert: true,
+        new: true,
+        upsert: true,
       }
     )
+
     return NextResponse.json({
       success: true,
       user,
+      needsPhone: !user.phoneNo,
     })
   } catch (error) {
     console.error("Firebase auth error:", error)

@@ -17,68 +17,96 @@ import {
 } from "@/src/components/ui/field"
 import { Input } from "@/src/components/ui/input"
 
-import { signInWithPopup, GoogleAuthProvider } from "firebase/auth"
 import { auth } from "@/src/lib/firebase"
-
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const [user, setUser] = useState<any>(null)
+  const [phoneNo, setPhoneNo] = useState("")
   const [loading, setLoading] = useState(false)
 
-const handleGoogleLogin = async () => {
-  try {
-    setLoading(true)
+  useEffect(() => {
+    const currentUser = auth.currentUser
+    if (currentUser) {
+      setUser(currentUser)
+    }
+  }, [])
 
-    const provider = new GoogleAuthProvider()
-    const result = await signInWithPopup(auth, provider)
-    const idToken = await result.user.getIdToken()
+  const handleSubmit = async () => {
+    if (!phoneNo) return
 
-    await fetch("/api/auth/firebase/google", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ idToken }),
-    })
-  } catch (err) {
-    console.error("Google login failed", err)
-  } finally {
-    setLoading(false)
+    try {
+      setLoading(true)
+
+      const idToken = await user.getIdToken()
+
+      await fetch("/api/auth/firebase/google/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          idToken,
+          phoneNo,
+        }),
+      })
+
+      // redirect after success
+      window.location.href = "/dashboard"
+    } catch (err) {
+      console.error("Phone update failed", err)
+    } finally {
+      setLoading(false)
+    }
   }
-}
 
+  if (!user) return null
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
         <CardHeader>
-          <CardTitle>Login to your account</CardTitle>
+          <CardTitle>Complete your profile</CardTitle>
           <CardDescription>
-            Choose your google account you want to login with
+            Confirm your details and add your phone number
           </CardDescription>
         </CardHeader>
 
         <CardContent>
-          <form onSubmit={(e) => e.preventDefault()}>
-            <FieldGroup>
+          <FieldGroup>
+            <Field>
+              <FieldLabel>Name</FieldLabel>
+              <Input value={user.displayName || ""} disabled />
+            </Field>
 
-              <Field>
-                <Button
-                  variant="outline"
-                  type="button"
-                  onClick={handleGoogleLogin}
-                  disabled={loading}
-                >
-                  {loading ? "Signing in..." : "Login with Google"}
-                </Button>
+            <Field>
+              <FieldLabel>Email</FieldLabel>
+              <Input value={user.email || ""} disabled />
+            </Field>
 
-                <FieldDescription className="text-center">
-                  Don&apos;t have an account? <a href="#">Sign up</a>
-                </FieldDescription>
-              </Field>
-            </FieldGroup>
-          </form>
+            <Field>
+              <FieldLabel>Phone Number</FieldLabel>
+              <Input
+                placeholder="10-digit mobile number"
+                value={phoneNo}
+                onChange={(e) => setPhoneNo(e.target.value)}
+              />
+              <FieldDescription>
+                Required so other students can contact you
+              </FieldDescription>
+            </Field>
+
+            <Field>
+              <Button
+                onClick={handleSubmit}
+                disabled={loading}
+                className="w-full"
+              >
+                {loading ? "Saving..." : "Continue"}
+              </Button>
+            </Field>
+          </FieldGroup>
         </CardContent>
       </Card>
     </div>
