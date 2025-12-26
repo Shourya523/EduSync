@@ -1,34 +1,34 @@
-.edusync-dashboard-root {
+.carbuddy-dashboard-root {
   padding: 1.5rem 2rem 1.5rem 0.5rem;
   max-width: 1400px;
   margin: 0;
   min-height: 100vh;
 }
 
-.edusync-main-header {
+.carbuddy-main-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
   margin-bottom: 2rem;
 }
 
-.edusync-welcome-container h1 {
+.carbuddy-welcome-container h1 {
   font-size: 2.5rem;
   font-weight: 700;
   color: #1a1a1a;
   margin: 0;
 }
 
-.edusync-welcome-container h1 span {
+.carbuddy-welcome-container h1 span {
   color: #d4a23a;
 }
 
-.edusync-welcome-container p {
+.carbuddy-welcome-container p {
   color: #666;
   margin-top: 0.5rem;
 }
 
-.edusync-avatar-wrapper {
+.carbuddy-avatar-wrapper {
   width: 36px;
   height: 36px;
   border-radius: 9999px;
@@ -39,14 +39,14 @@
   background: #f0f0f0;
 }
 
-.edusync-bento-layout {
+.carbuddy-bento-layout {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: auto auto;
   gap: 1.5rem;
 }
 
-.edusync-tile {
+.carbuddy-tile {
   background: #ffffff;
   border-radius: 24px;
   padding: 1.5rem;
@@ -59,20 +59,20 @@
   overflow: hidden;
 }
 
-.edusync-tile:hover {
+.carbuddy-tile:hover {
   transform: translateY(-5px);
   box-shadow: 0 12px 24px rgba(0,0,0,0.05);
 }
 
-.edusync-tile-tall {
+.carbuddy-tile-tall {
   grid-row: span 2;
 }
 
-.edusync-tile-wide {
+.carbuddy-tile-wide {
   grid-column: span 2;
 }
 
-.edusync-hero-tile {
+.carbuddy-hero-tile {
   background: #efece5;
   border: none;
   border-radius: 24px;
@@ -85,11 +85,11 @@
   min-height: 380px;
 }
 
-.edusync-hero-inner {
+.carbuddy-hero-inner {
   width: 100%;
 }
 
-.edusync-location-card {
+.carbuddy-location-card {
   background: white;
   border-radius: 16px;
   padding: 16px 20px;
@@ -97,14 +97,14 @@
   margin-bottom: 20px;
 }
 
-.edusync-loc-row {
+.carbuddy-loc-row {
   display: flex;
   flex-direction: column;
   gap: 6px;
   padding: 6px 0;
 }
 
-.edusync-loc-row label {
+.carbuddy-loc-row label {
   font-size: 0.65rem;
   font-weight: 800;
   color: #a0a0a0;
@@ -112,13 +112,13 @@
   text-transform: uppercase;
 }
 
-.edusync-input-flex {
+.carbuddy-input-flex {
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
-.edusync-loc-input {
+.carbuddy-loc-input {
   border: none;
   font-size: 1rem;
   font-weight: 600;
@@ -127,23 +127,23 @@
   outline: none;
 }
 
-.edusync-icon-orange { color: #f97316; }
-.edusync-icon-blue { color: #3b82f6; }
+.carbuddy-icon-orange { color: #f97316; }
+.carbuddy-icon-blue { color: #3b82f6; }
 
-.edusync-divider {
+.carbuddy-divider {
   height: 1px;
   background: #f0f0f0;
   width: 100%;
   margin: 6px 0;
 }
 
-.edusync-hero-content p {
+.carbuddy-hero-content p {
   color: #666;
   margin-bottom: 0;
   font-size: 0.95rem;
 }
 
-.edusync-action-row {
+.carbuddy-action-row {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -151,7 +151,7 @@
   --action-width: 150px;
 }
 
-.edusync-black-btn {
+.carbuddy-black-btn {
   background: #1a1a1a;
   color: white;
   padding: 0 24px;
@@ -169,7 +169,7 @@
   white-space: nowrap;
 }
 
-.edusync-price-pill {
+.carbuddy-price-pill {
   display: flex;
   align-items: center;
   background: white;
@@ -180,13 +180,13 @@
   box-sizing: border-box;
 }
 
-.edusync-currency {
+.carbuddy-currency {
   font-weight: 700;
   color: #1a1a1a;
   margin-right: 2px;
 }
 
-.edusync-price-pill input {
+.carbuddy-price-pill input {
   border: none;
   background: transparent;
   width: 48px;
@@ -197,7 +197,7 @@
   color: #1a1a1a;
 }
 
-.edusync-tag-label {
+.carbuddy-tag-label {
   font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -210,34 +210,34 @@
   color: #8b6e4e;
 }
 
-.edusync-badge {
+.carbuddy-badge {
   font-size: 1.2rem;
   font-weight: 700;
   color: #1a1a1a;
   margin-bottom: 0.5rem;
 }
 
-.edusync-list-header {
+.carbuddy-list-header {
   margin-bottom: 1rem;
 }
 
-.edusync-list-header h3 {
+.carbuddy-list-header h3 {
   font-size: 1.2rem;
   font-weight: 700;
 }
 
-.edusync-list-header p {
+.carbuddy-list-header p {
   font-size: 0.85rem;
   color: #888;
 }
 
-.edusync-scroll-area {
+.carbuddy-scroll-area {
   overflow-y: auto;
   flex: 1;
   padding-right: 4px;
 }
 
-.edusync-ride-item {
+.carbuddy-ride-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -245,13 +245,13 @@
   border-bottom: 1px solid #f5f5f5;
 }
 
-.edusync-ride-info h4 {
+.carbuddy-ride-info h4 {
   font-size: 0.95rem;
   font-weight: 700;
   margin-bottom: 4px;
 }
 
-.edusync-ride-meta {
+.carbuddy-ride-meta {
   font-size: 0.75rem;
   color: #888;
   display: flex;
@@ -259,7 +259,7 @@
   gap: 6px;
 }
 
-.edusync-ride-rating {
+.carbuddy-ride-rating {
   margin-top: 6px;
   display: flex;
   align-items: center;
@@ -268,13 +268,13 @@
   color: #666;
 }
 
-.edusync-ride-actions {
+.carbuddy-ride-actions {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.edusync-name-trigger {
+.carbuddy-name-trigger {
   background: none;
   border: none;
   padding: 0;
@@ -285,12 +285,12 @@
   text-align: left;
 }
 
-.edusync-name-trigger:hover {
+.carbuddy-name-trigger:hover {
   text-decoration: underline;
   color: #d4a23a;
 }
 
-.edusync-price-badge {
+.carbuddy-price-badge {
   background: #f5f5f5;
   padding: 6px 10px;
   border-radius: 8px;
@@ -298,23 +298,23 @@
   font-weight: 700;
 }
 
-.edusync-stat-tile {
+.carbuddy-stat-tile {
   justify-content: center;
 }
 
-.edusync-stat-value {
+.carbuddy-stat-value {
   font-size: 2rem;
   font-weight: 800;
   color: #1a1a1a;
   margin: 10px 0 4px 0;
 }
 
-.edusync-stat-label {
+.carbuddy-stat-label {
   color: #888;
   font-size: 0.85rem;
 }
 
-.edusync-modal-overlay {
+.carbuddy-modal-overlay {
   position: fixed;
   inset: 0;
   background: rgba(0,0,0,0.3);
@@ -325,7 +325,7 @@
   z-index: 1000;
 }
 
-.edusync-modal-box {
+.carbuddy-modal-box {
   background: white;
   padding: 0;
   width: 100%;
@@ -337,7 +337,7 @@
   flex-direction: column;
 }
 
-.edusync-modal-header {
+.carbuddy-modal-header {
   padding: 20px;
   background: #fcfcfc;
   border-bottom: 1px solid #f0f0f0;
@@ -346,32 +346,32 @@
   align-items: flex-start;
 }
 
-.edusync-chat-user-info {
+.carbuddy-chat-user-info {
   display: flex;
   gap: 12px;
   align-items: center;
 }
 
-.edusync-chat-user-info h3 {
+.carbuddy-chat-user-info h3 {
   font-size: 1rem;
   font-weight: 700;
   margin: 0;
   color: #1a1a1a;
 }
 
-.edusync-chat-status {
+.carbuddy-chat-status {
   font-size: 0.75rem;
   color: #22c55e;
   font-weight: 500;
 }
 
-.edusync-avatar-small {
+.carbuddy-avatar-small {
   background: #f0f0f0;
   border-radius: 50%;
   padding: 2px;
 }
 
-.edusync-modal-close {
+.carbuddy-modal-close {
   background: #f5f5f5;
   border: none;
   width: 28px;
@@ -384,7 +384,7 @@
   color: #666;
 }
 
-.edusync-chat-body {
+.carbuddy-chat-body {
   height: 300px;
   background: #ffffff;
   padding: 20px;
@@ -394,7 +394,7 @@
   gap: 12px;
 }
 
-.edusync-msg-bubble {
+.carbuddy-msg-bubble {
   padding: 10px 14px;
   border-radius: 14px;
   font-size: 0.9rem;
@@ -402,14 +402,14 @@
   line-height: 1.4;
 }
 
-.edusync-msg-bubble.received {
+.carbuddy-msg-bubble.received {
   background: #f5f5f5;
   color: #1a1a1a;
   border-bottom-left-radius: 4px;
   align-self: flex-start;
 }
 
-.edusync-date-divider {
+.carbuddy-date-divider {
   text-align: center;
   font-size: 0.7rem;
   color: #ccc;
@@ -417,7 +417,7 @@
   font-weight: 600;
 }
 
-.edusync-chat-input-area {
+.carbuddy-chat-input-area {
   padding: 16px;
   border-top: 1px solid #f0f0f0;
   background: white;
@@ -425,7 +425,7 @@
   gap: 10px;
 }
 
-.edusync-chat-input-area input {
+.carbuddy-chat-input-area input {
   flex: 1;
   padding: 12px 16px;
   border-radius: 100px;
@@ -435,7 +435,7 @@
   background: #fcfcfc;
 }
 
-.edusync-send-btn {
+.carbuddy-send-btn {
   background: #1a1a1a;
   color: white;
   border: none;
@@ -449,23 +449,23 @@
   transition: transform 0.1s;
 }
 
-.edusync-send-btn:active {
+.carbuddy-send-btn:active {
   transform: scale(0.95);
 }
 
 @media (max-width: 900px) {
-  .edusync-bento-layout {
+  .carbuddy-bento-layout {
     grid-template-columns: 1fr;
     grid-template-rows: auto;
   }
   
-  .edusync-tile-wide, 
-  .edusync-tile-tall {
+  .carbuddy-tile-wide, 
+  .carbuddy-tile-tall {
     grid-column: span 1;
     grid-row: auto;
   }
   
-  .edusync-tile-tall {
+  .carbuddy-tile-tall {
     min-height: 400px;
   }
 }
