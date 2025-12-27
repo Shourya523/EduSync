@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import AuthGuard from "@/src/components/AuthGuard";
 import { 
   Search, 
@@ -9,7 +9,9 @@ import {
   X, 
   Share2, 
   MessageCircle, 
-  Tag
+  Tag,
+  ImageIcon,
+  Trash2
 } from "lucide-react";
 import "./marketplace.css";
 
@@ -27,16 +29,16 @@ interface Listing {
   postedAt: string;
 }
 
-// --- Mock Data ---
+// --- Reliable Image Links (Unsplash) ---
 const SAMPLE_LISTINGS: Listing[] = [
   {
     id: "1",
-    title: "Engineering Mathematics - H.K. Dass (Used)",
+    title: "Engineering Mathematics - H.K. Dass",
     price: 450,
     category: "Books",
     location: "Jaypee Sector 62 Campus",
-    description: "Slightly used copy, good condition. No highlighting inside. Necessary for 1st year B.Tech students. Pickup from JBH Hostel.",
-    image: "https://m.media-amazon.com/images/I/71s8Q4l+JBL._AC_UF1000,1000_QL80_.jpg", 
+    description: "Slightly used copy. No highlighting. Must have for 1st years.",
+    image: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&q=80&w=800", 
     sellerName: "Aarav Singh",
     sellerJoined: "2023",
     postedAt: "2 days ago"
@@ -47,47 +49,47 @@ const SAMPLE_LISTINGS: Listing[] = [
     price: 800,
     category: "Electronics",
     location: "Jaypee Sector 128 Campus",
-    description: "Original Casio calculator. Working perfectly. Solar panel intact. Selling because I upgraded.",
-    image: "https://m.media-amazon.com/images/I/61Z5y+2yG9L.jpg",
+    description: "Original Casio calculator. Solar panel working perfectly.",
+    image: "https://images.unsplash.com/photo-1594910620242-6346299b0c03?auto=format&fit=crop&q=80&w=800",
     sellerName: "Priya Sharma",
     sellerJoined: "2022",
     postedAt: "5 hours ago"
   },
   {
     id: "3",
-    title: "Mini Cooler for Hostel Room",
-    price: 2500,
+    title: "Mini Table Fan",
+    price: 600,
     category: "Appliances",
     location: "Jaypee Sector 62 Campus",
-    description: "Lifesaver for summers. Compact size, fits on study table. Low power consumption. Comes with original box.",
-    image: "https://m.media-amazon.com/images/I/51r+2+w+1gL._SX679_.jpg",
+    description: "Compact size, fits on study table. Lifesaver for summer.",
+    image: "https://images.unsplash.com/photo-1618941716939-553dfdfc674d?auto=format&fit=crop&q=80&w=800",
     sellerName: "Rohan Gupta",
     sellerJoined: "2021",
     postedAt: "1 day ago"
   },
   {
-    id: "4",
-    title: "Drafter + Roller Scale Combo",
-    price: 300,
-    category: "Stationery",
-    location: "Jaypee Sector 62 Campus",
-    description: "Complete engineering drawing kit. Omega drafter + 30cm roller scale. Used for one semester only.",
-    image: "https://m.media-amazon.com/images/I/61jC5yQ8YJL.jpg",
-    sellerName: "Neha Patel",
-    sellerJoined: "2024",
-    postedAt: "Just now"
-  },
-  {
     id: "5",
-    title: "Decathlon Cycle (Triban RC100)",
+    title: "Road Bike (Triban RC100)",
     price: 12000,
     category: "Vehicles",
     location: "Jaypee Sector 128 Campus",
-    description: "Road bike in excellent condition. Serviced last month. Great for commuting between gates. Includes lock.",
-    image: "https://contents.mediadecathlon.com/p1287954/k$550ef313508c909c251d855018d721d7/road-bike-triban-rc100-grey.jpg?format=auto&quality=40&f=800x800",
+    description: "Excellent condition. Great for commuting between gates.",
+    image: "https://images.unsplash.com/photo-1485965120184-e224f7a1db69?auto=format&fit=crop&q=80&w=800",
     sellerName: "Vikram Malhotra",
     sellerJoined: "2022",
     postedAt: "3 days ago"
+  },
+  {
+    id: "6",
+    title: "Sony Noise Cancelling Headphones",
+    price: 4500,
+    category: "Electronics",
+    location: "Jaypee Sector 62 Campus",
+    description: "WH-CH710N. 30hr battery life. Barely used.",
+    image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=800",
+    sellerName: "Sneha Reddy",
+    sellerJoined: "2023",
+    postedAt: "Just now"
   }
 ];
 
@@ -100,7 +102,7 @@ export default function CampusMarketplacePage() {
   const [selectedItem, setSelectedItem] = useState<Listing | null>(null);
   const [isSellModalOpen, setIsSellModalOpen] = useState(false);
 
-  // New Listing Form State
+  // Form State
   const [newListing, setNewListing] = useState({
     title: "",
     price: "",
@@ -108,6 +110,11 @@ export default function CampusMarketplacePage() {
     description: "",
     location: "Jaypee Sector 62 Campus"
   });
+  
+  // Image Upload State
+  const [selectedImageFile, setSelectedImageFile] = useState<File | null>(null);
+  const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const filteredListings = listings.filter(item => {
     const matchesSearch = item.title.toLowerCase().includes(searchQuery.toLowerCase());
@@ -116,17 +123,32 @@ export default function CampusMarketplacePage() {
   });
 
   const handleShare = (item: Listing) => {
-    const dummyLink = `https://edusync.com/marketplace/${item.id}`;
-    navigator.clipboard.writeText(dummyLink);
-    alert("Link copied to clipboard!");
+    alert("Link copied!");
   };
 
   const handleMessageSeller = (sellerName: string) => {
-    alert(`Chat window opened with ${sellerName}. (Feature coming soon!)`);
+    alert(`Chat opened with ${sellerName}`);
+  };
+
+  const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      setSelectedImageFile(file);
+      setImagePreviewUrl(URL.createObjectURL(file));
+    }
+  };
+
+  const handleRemoveImage = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setSelectedImageFile(null);
+    setImagePreviewUrl(null);
+    if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
   const handleAddListing = (e: React.FormEvent) => {
     e.preventDefault();
+    const finalImage = imagePreviewUrl || "https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=800"; // Generic placeholder
+
     const item: Listing = {
       id: Math.random().toString(36).substr(2, 9),
       title: newListing.title,
@@ -134,8 +156,7 @@ export default function CampusMarketplacePage() {
       category: newListing.category,
       location: newListing.location as any,
       description: newListing.description,
-      // Placeholder image for user uploads
-      image: "https://placehold.co/600x600?text=New+Item", 
+      image: finalImage, 
       sellerName: "You",
       sellerJoined: "2024",
       postedAt: "Just now"
@@ -144,6 +165,8 @@ export default function CampusMarketplacePage() {
     setListings([item, ...listings]);
     setIsSellModalOpen(false);
     setNewListing({ title: "", price: "", category: "Books", description: "", location: "Jaypee Sector 62 Campus" });
+    setSelectedImageFile(null);
+    setImagePreviewUrl(null);
   };
 
   return (
@@ -159,17 +182,17 @@ export default function CampusMarketplacePage() {
           
           <div className="marketplace-actions">
             <div className="search-bar-wrapper">
-              <Search className="search-icon" size={18} />
+              <Search className="search-icon" size={20} />
               <input 
                 type="text" 
                 className="search-input" 
-                placeholder="Search items..."
+                placeholder="Search..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
             <button className="btn-sell" onClick={() => setIsSellModalOpen(true)}>
-              <Plus size={18} />
+              <Plus size={20} />
               Sell Item
             </button>
           </div>
@@ -201,8 +224,8 @@ export default function CampusMarketplacePage() {
                   <img src={item.image} alt={item.title} className="item-img" />
                 </div>
                 <div className="item-info">
-                  <span className="price-tag">₹{item.price.toLocaleString()}</span>
-                  <span className="item-name">{item.title}</span>
+                  <div className="price-tag">₹{item.price.toLocaleString()}</div>
+                  <div className="item-name">{item.title}</div>
                   <div className="item-location">
                     <MapPin size={12} />
                     {item.location.replace("Jaypee ", "")}
@@ -212,12 +235,12 @@ export default function CampusMarketplacePage() {
             ))
           ) : (
             <div style={{ gridColumn: "1/-1", textAlign: "center", padding: "4rem", color: "#999" }}>
-              <p>No items found matching your criteria.</p>
+              <p>No items found.</p>
             </div>
           )}
         </div>
 
-        {/* ITEM DETAIL MODAL */}
+        {/* DETAIL MODAL */}
         {selectedItem && (
           <div className="modal-overlay" onClick={() => setSelectedItem(null)}>
             <div className="detail-modal" onClick={(e) => e.stopPropagation()}>
@@ -255,9 +278,9 @@ export default function CampusMarketplacePage() {
                 </div>
 
                 <div className="modal-desc">
-                  <h4 style={{ margin: '0 0 8px 0', fontSize: '0.9rem', color: '#888', textTransform: 'uppercase' }}>Details</h4>
+                  <h4>Description</h4>
                   <p>{selectedItem.description}</p>
-                  <p style={{ marginTop: '1rem', fontSize: '0.8rem', color: '#999' }}>
+                  <p style={{ marginTop: '1rem', fontSize: '0.8rem', color: '#ccc' }}>
                     Posted {selectedItem.postedAt}
                   </p>
                 </div>
@@ -273,7 +296,6 @@ export default function CampusMarketplacePage() {
                   <button 
                     className="btn-share"
                     onClick={() => handleShare(selectedItem)}
-                    title="Share Listing"
                   >
                     <Share2 size={18} />
                     Share
@@ -284,31 +306,70 @@ export default function CampusMarketplacePage() {
           </div>
         )}
 
-        {/* SELL ITEM MODAL */}
+        {/* SELL MODAL */}
         {isSellModalOpen && (
           <div className="modal-overlay" onClick={() => setIsSellModalOpen(false)}>
             <div className="sell-form-container" onClick={(e) => e.stopPropagation()}>
               <div className="form-header">
                 <h2>List an Item</h2>
-                <button onClick={() => setIsSellModalOpen(false)} style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
-                  <X size={24} />
+                <button 
+                  onClick={() => setIsSellModalOpen(false)} 
+                  className="close-modal-btn" 
+                  style={{ position: 'static' }}
+                >
+                  <X size={20} />
                 </button>
               </div>
 
               <form onSubmit={handleAddListing}>
+                {/* Image Upload */}
+                <div 
+                  className="upload-area" 
+                  onClick={() => fileInputRef.current?.click()}
+                >
+                  {imagePreviewUrl ? (
+                    <>
+                      <img src={imagePreviewUrl} alt="Preview" className="preview-img" />
+                      <button 
+                        type="button"
+                        className="remove-img-btn" 
+                        onClick={handleRemoveImage}
+                      >
+                        <Trash2 size={16} />
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <div className="upload-icon-wrapper">
+                        <ImageIcon size={24} />
+                      </div>
+                      <span style={{ fontSize: '0.9rem', color: '#666', fontWeight: 600 }}>
+                        Click to upload photo
+                      </span>
+                    </>
+                  )}
+                  <input 
+                    type="file" 
+                    hidden 
+                    ref={fileInputRef} 
+                    accept="image/*"
+                    onChange={handleImageSelect}
+                  />
+                </div>
+
                 <div className="form-field">
                   <label>Item Title</label>
                   <input 
                     type="text" 
                     className="form-ctrl" 
-                    placeholder="What are you selling?"
+                    placeholder="E.g. Engineering Physics Book"
                     value={newListing.title}
                     onChange={e => setNewListing({...newListing, title: e.target.value})}
                     required
                   />
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                <div className="form-grid-2">
                   <div className="form-field">
                     <label>Price (₹)</label>
                     <input 
@@ -350,7 +411,7 @@ export default function CampusMarketplacePage() {
                   <label>Description</label>
                   <textarea 
                     className="form-ctrl form-area" 
-                    placeholder="Describe condition, reason for selling, etc."
+                    placeholder="Describe condition, reason for selling..."
                     value={newListing.description}
                     onChange={e => setNewListing({...newListing, description: e.target.value})}
                     required

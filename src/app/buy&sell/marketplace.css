@@ -1,23 +1,28 @@
+/* Container Reset */
 .marketplace-container {
   max-width: 1600px;
   margin: 0 auto;
   padding-bottom: 4rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
+/* --- Header --- */
 .marketplace-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2rem;
+  gap: 1.5rem;
   flex-wrap: wrap;
-  gap: 1rem;
 }
 
 .marketplace-header h1 {
   font-size: 2.5rem;
-  font-weight: 700;
+  font-weight: 800;
   color: #1a1a1a;
   margin: 0;
+  line-height: 1.2;
 }
 
 .marketplace-header h1 span {
@@ -44,7 +49,8 @@
   font-size: 0.95rem;
   outline: none;
   transition: all 0.2s;
-  box-sizing: border-box;
+  box-sizing: border-box; /* Crucial fix */
+  height: 48px;
 }
 
 .search-input:focus {
@@ -55,16 +61,18 @@
 
 .search-icon {
   position: absolute;
-  left: 14px;
+  left: 16px;
   top: 50%;
   transform: translateY(-50%);
   color: #999;
+  pointer-events: none;
 }
 
 .btn-sell {
-  background: #d4a23a;
+  background: #1a1a1a;
   color: white;
-  padding: 12px 24px;
+  padding: 0 24px;
+  height: 48px;
   border-radius: 50px;
   border: none;
   font-weight: 700;
@@ -78,22 +86,24 @@
 
 .btn-sell:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(212, 162, 58, 0.3);
+  background: #333;
 }
 
+/* --- Categories --- */
 .category-filter {
   display: flex;
   gap: 10px;
   overflow-x: auto;
-  padding-bottom: 4px;
+  padding-bottom: 8px;
   margin-bottom: 2rem;
   scrollbar-width: none;
 }
+.category-filter::-webkit-scrollbar { display: none; }
 
 .category-chip {
   background: #fff;
   border: 1px solid #e5e5e5;
-  padding: 8px 16px;
+  padding: 8px 18px;
   border-radius: 20px;
   font-size: 0.9rem;
   font-weight: 600;
@@ -114,16 +124,16 @@
   border-color: #1a1a1a;
 }
 
-/* Grid Layout similar to FB Marketplace */
+/* --- Items Grid --- */
 .items-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 1.5rem;
 }
 
 .item-card {
   background: #fff;
-  border-radius: 12px;
+  border-radius: 16px;
   border: 1px solid #f0f0f0;
   overflow: hidden;
   cursor: pointer;
@@ -135,10 +145,12 @@
 .item-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 12px 24px rgba(0,0,0,0.06);
+  border-color: #d4a23a;
 }
 
 .item-image-box {
-  aspect-ratio: 1 / 1;
+  width: 100%;
+  aspect-ratio: 4 / 3;
   background: #f4f4f4;
   position: relative;
   overflow: hidden;
@@ -149,6 +161,7 @@
   height: 100%;
   object-fit: cover;
   transition: transform 0.3s;
+  display: block; /* Removes bottom gap */
 }
 
 .item-card:hover .item-img {
@@ -156,14 +169,14 @@
 }
 
 .item-info {
-  padding: 1rem;
+  padding: 1.25rem;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
 }
 
 .price-tag {
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   font-weight: 800;
   color: #1a1a1a;
 }
@@ -183,30 +196,31 @@
   margin-top: 4px;
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
 }
 
-/* Modal Styles */
+/* --- Modals (Fixed) --- */
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.4);
-  backdrop-filter: blur(4px);
-  z-index: 1000;
+  background: rgba(0, 0, 0, 0.6); /* Darker backdrop */
+  backdrop-filter: blur(5px);
+  z-index: 9999; /* Ensure it's on top */
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 2rem;
 }
 
+/* Detail Modal */
 .detail-modal {
-  background: #fff;
+  background: #ffffff;
   width: 100%;
   max-width: 1000px;
-  height: 600px;
+  height: 600px; /* Fixed height for desktop */
   border-radius: 24px;
   display: grid;
-  grid-template-columns: 1.2fr 1fr;
+  grid-template-columns: 1.2fr 1fr; /* Split layout */
   overflow: hidden;
   box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
   position: relative;
@@ -216,26 +230,27 @@
   position: absolute;
   top: 16px;
   right: 16px;
-  background: #f5f5f5;
-  border: none;
-  width: 36px;
-  height: 36px;
+  background: white;
+  border: 1px solid #eee;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   cursor: pointer;
-  z-index: 10;
+  z-index: 20; /* Above image */
   display: flex;
   align-items: center;
   justify-content: center;
   color: #333;
-  transition: background 0.2s;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
 }
 
 .close-modal-btn:hover {
-  background: #e5e5e5;
+  transform: scale(1.1);
 }
 
 .modal-left {
-  background: #000;
+  background: #f8f8f8;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -245,7 +260,7 @@
 .modal-img-full {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
 }
 
 .modal-right {
@@ -253,6 +268,7 @@
   display: flex;
   flex-direction: column;
   overflow-y: auto;
+  background: white;
 }
 
 .modal-title {
@@ -280,8 +296,8 @@
 
 .tag-pill {
   background: #f7f7f7;
-  padding: 6px 12px;
-  border-radius: 8px;
+  padding: 8px 14px;
+  border-radius: 10px;
   font-size: 0.85rem;
   color: #666;
   font-weight: 600;
@@ -298,8 +314,8 @@
 }
 
 .seller-pic {
-  width: 48px;
-  height: 48px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   background: #d4a23a;
   color: white;
@@ -307,19 +323,17 @@
   align-items: center;
   justify-content: center;
   font-weight: 700;
-  font-size: 1.2rem;
+  font-size: 1.25rem;
 }
 
 .seller-text h4 { margin: 0; font-size: 1rem; color: #1a1a1a; }
 .seller-text p { margin: 2px 0 0 0; font-size: 0.8rem; color: #888; }
 
 .modal-desc {
-  color: #444;
-  line-height: 1.6;
-  font-size: 1rem;
   margin-bottom: 2rem;
-  white-space: pre-wrap;
 }
+.modal-desc h4 { margin: 0 0 8px 0; font-size: 0.85rem; color: #999; text-transform: uppercase; }
+.modal-desc p { color: #444; line-height: 1.6; font-size: 1rem; margin: 0; }
 
 .action-buttons {
   margin-top: auto;
@@ -331,7 +345,7 @@
   flex: 1;
   background: #1a1a1a;
   color: white;
-  padding: 14px;
+  padding: 16px;
   border-radius: 12px;
   border: none;
   font-weight: 700;
@@ -347,7 +361,7 @@
 .btn-share {
   background: #f5f5f5;
   color: #1a1a1a;
-  padding: 14px;
+  padding: 16px;
   border-radius: 12px;
   border: none;
   font-weight: 700;
@@ -364,14 +378,17 @@
 .btn-msg:hover { opacity: 0.9; }
 .btn-share:hover { background: #e5e5e5; }
 
-/* Sell Form Modal */
+/* --- Sell Form Modal (Fixed) --- */
 .sell-form-container {
-  padding: 2rem;
+  padding: 2.5rem;
   width: 100%;
-  max-width: 500px;
+  max-width: 550px;
   background: white;
   border-radius: 24px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+  box-shadow: 0 25px 60px rgba(0,0,0,0.2);
+  position: relative;
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
 .form-header {
@@ -381,32 +398,116 @@
   margin-bottom: 1.5rem;
 }
 
-.form-header h2 { margin: 0; font-size: 1.5rem; }
+.form-header h2 { margin: 0; font-size: 1.8rem; font-weight: 800; }
 
-.form-field { margin-bottom: 1rem; }
-.form-field label { display: block; font-size: 0.85rem; font-weight: 700; color: #666; margin-bottom: 6px; }
-.form-ctrl { width: 100%; padding: 12px; border: 1px solid #e5e5e5; border-radius: 12px; font-size: 1rem; outline: none; box-sizing: border-box; }
-.form-ctrl:focus { border-color: #d4a23a; }
-.form-area { min-height: 100px; resize: vertical; }
+.form-field { margin-bottom: 1.5rem; }
+.form-field label { 
+  display: block; 
+  font-size: 0.85rem; 
+  font-weight: 700; 
+  color: #666; 
+  margin-bottom: 8px; 
+}
+
+.form-ctrl { 
+  width: 100%; 
+  padding: 14px; 
+  border: 1px solid #e5e5e5; 
+  border-radius: 12px; 
+  font-size: 1rem; 
+  outline: none; 
+  box-sizing: border-box; /* Crucial for alignment */
+  background: #fcfcfc;
+}
+.form-ctrl:focus { border-color: #d4a23a; background: white; }
+.form-area { min-height: 100px; resize: vertical; font-family: inherit; }
+
+.form-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+/* Upload Area Fixes */
+.upload-area {
+  border: 2px dashed #e5e5e5;
+  border-radius: 16px;
+  padding: 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 1.5rem;
+  min-height: 180px;
+  position: relative;
+  overflow: hidden;
+}
+
+.upload-area:hover {
+  border-color: #d4a23a;
+  background: #fffcf5;
+}
+
+.upload-icon-wrapper {
+  background: white;
+  padding: 12px;
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  color: #d4a23a;
+}
+
+.preview-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.remove-img-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(0,0,0,0.6);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
 
 .btn-submit {
   width: 100%;
-  background: #d4a23a;
+  background: #1a1a1a;
   color: white;
-  padding: 14px;
+  padding: 16px;
   border: none;
-  border-radius: 12px;
+  border-radius: 14px;
   font-weight: 700;
-  font-size: 1rem;
+  font-size: 1.1rem;
   cursor: pointer;
   margin-top: 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
+.btn-submit:hover { opacity: 0.9; transform: translateY(-1px); }
+
+/* Mobile Response */
 @media (max-width: 900px) {
   .detail-modal {
     grid-template-columns: 1fr;
-    height: 90vh;
-    overflow-y: auto;
+    height: 80vh;
   }
   .modal-left { height: 300px; }
+  .form-grid-2 { grid-template-columns: 1fr; gap: 0; }
 }
