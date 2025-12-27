@@ -57,9 +57,8 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
 
         try {
             await updateProfile(user, { displayName: formData.displayName });
-
             const token = await user.getIdToken();
-            const res = await fetch("/api/update-phone", {
+            const res = await fetch("/api/update-phone", { 
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ idToken: token, phoneNo: formData.phoneNumber })
