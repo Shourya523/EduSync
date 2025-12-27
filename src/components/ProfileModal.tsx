@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { auth } from "@/src/lib/firebase"; 
 import { updateProfile } from "firebase/auth";
 import { toast } from "react-toastify";
-// REMOVED: import "./ProfileModal.css"; 
+
 import { User, Mail, Phone, Save, Camera, X, ArrowLeft } from "lucide-react";
 
 interface ProfileModalProps {
