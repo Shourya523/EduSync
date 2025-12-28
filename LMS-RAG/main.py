@@ -115,21 +115,32 @@ def initialize_collection():
     ensure_payload_indexes()
 
 def get_embedding(text: str) -> List[float]:
-    # Support different client API shapes: try `models.embed_content` first,
-    # otherwise fall back to `embeddings.create` style.
+    errs = []
     try:
-        result = gemini_client.models.embed_content(
-            model="gemini-embedding-001",
-            contents=text,
-        )
-        return result.embeddings[0].values
-    except Exception:
-        # fallback for genai.embeddings.create or similar
-        if hasattr(genai, "embeddings"):
+        if gemini_client and hasattr(gemini_client, "models"):
+            result = gemini_client.models.embed_content(
+                model="gemini-embedding-001",
+                contents=text,
+            )
+            return result.embeddings[0].values
+    except Exception as e:
+        errs.append(e)
+    try:
+        if genai and hasattr(genai, "embeddings") and hasattr(genai.embeddings, "create"):
             res = genai.embeddings.create(model="gemini-embedding-001", input=text)
-            # response shape: data[0].embedding
             return res.data[0].embedding
-        raise
+    except Exception as e:
+        errs.append(e)
+    try:
+        if genai and hasattr(genai, "create_embedding"):
+            res = genai.create_embedding(model="gemini-embedding-001", input=text)
+            if isinstance(res, dict) and "data" in res and len(res["data"]) > 0:
+                return res["data"][0].get("embedding") or res["data"][0].get("vector")
+            if hasattr(res, "data") and len(res.data) > 0:
+                return getattr(res.data[0], "embedding", None) or getattr(res.data[0], "vector", None)
+    except Exception as e:
+        errs.append(e)
+    raise RuntimeError(f"Unable to obtain embeddings from GenAI client. Tried multiple client shapes; errors: {errs}")
 
 def store_documents_in_qdrant(documents, source_type: str, source_name: str):
     chunks = text_splitter.split_documents(documents)
