@@ -78,7 +78,7 @@
 }
 
 .ce-main-portal {
-    min-height: 600px;
+    min-height: 500px;
     display: flex;
     flex-direction: column;
 }
@@ -294,6 +294,162 @@
     font-weight: 600;
     padding-top: 2rem;
     border-top: 1px solid #f9f9f9;
+}
+
+/* ... Previous Styles ... */
+
+/* --- Print Section Styles --- */
+.print-workspace {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 2rem;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.print-upload-zone {
+    border: 2px dashed #e0e0e0;
+    border-radius: 20px;
+    height: 350px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background: #fcfcfc;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.print-upload-zone:hover {
+    border-color: #d4a373;
+    background: #fffcf5;
+}
+
+.print-icon {
+    color: #ccc;
+    margin-bottom: 1rem;
+    transition: color 0.2s;
+}
+
+.print-upload-zone:hover .print-icon {
+    color: #d4a373;
+}
+
+.print-cta {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.print-sub {
+    font-size: 0.85rem;
+    color: #999;
+    margin-top: 0.5rem;
+}
+
+/* Print Queue */
+.print-queue h4 {
+    margin: 0 0 1rem 0;
+    font-size: 1rem;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.queue-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    max-height: 250px;
+    overflow-y: auto;
+    margin-bottom: 1.5rem;
+}
+
+.queue-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    transition: all 0.3s;
+}
+
+.queue-item.completed {
+    border-color: #22c55e;
+    background: #f0fdf4;
+}
+
+.queue-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #333;
+}
+
+.file-name {
+    display: block;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.file-size {
+    font-size: 0.8rem;
+    color: #999;
+}
+
+.remove-queue-btn {
+    background: none;
+    border: none;
+    color: #999;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.remove-queue-btn:hover {
+    background: #fee2e2;
+    color: #ef4444;
+}
+
+.status-success {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #15803d;
+}
+
+.print-action-btn {
+    width: 100%;
+    padding: 1rem;
+    background: #1a1a1a;
+    color: white;
+    border: none;
+    border-radius: 14px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.print-action-btn:hover:not(:disabled) {
+    opacity: 0.9;
+}
+
+.print-action-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
 }
 
 /* Responsive */

@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import "./essential.css";
 import AuthGuard from "@/src/components/AuthGuard";
-import { Search, MapPin, BookOpen, Printer, Clock, AlertCircle } from "lucide-react";
+import { Search, MapPin, BookOpen, Printer, Clock, AlertCircle, FileText, X, CheckCircle, UploadCloud } from "lucide-react";
+import { toast } from "react-toastify";
 
 // Types
 type TabType = "Library" | "Print Out";
@@ -15,6 +16,13 @@ interface Book {
     category: string;
     status: "Available" | "Issued";
     location: string;
+}
+
+interface PrintJob {
+    id: string;
+    name: string;
+    size: string;
+    status: "queued" | "processing" | "completed";
 }
 
 // Mock Data for the Library
@@ -34,6 +42,11 @@ export default function CampusEssentials() {
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedFilter, setSelectedFilter] = useState("All");
 
+    // Print State
+    const [printQueue, setPrintQueue] = useState<PrintJob[]>([]);
+    const [isPrinting, setIsPrinting] = useState(false);
+    const fileInputRef = useRef<HTMLInputElement>(null);
+
     // Filter Logic
     const filteredBooks = MOCK_BOOKS.filter(book => {
         const matchesSearch = book.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
@@ -41,6 +54,37 @@ export default function CampusEssentials() {
         const matchesFilter = selectedFilter === "All" || book.category === selectedFilter;
         return matchesSearch && matchesFilter;
     });
+
+    // --- Print Logic ---
+    const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files.length > 0) {
+            const newFiles: PrintJob[] = Array.from(e.target.files).map(file => ({
+                id: Math.random().toString(36).substr(2, 9),
+                name: file.name,
+                size: (file.size / 1024 / 1024).toFixed(2) + " MB",
+                status: "queued"
+            }));
+            setPrintQueue([...printQueue, ...newFiles]);
+            toast.success("Added to print queue!");
+        }
+    };
+
+    const removeFile = (id: string) => {
+        setPrintQueue(printQueue.filter(job => job.id !== id));
+    };
+
+    const handlePrintCommand = () => {
+        if (printQueue.length === 0) return;
+        
+        setIsPrinting(true);
+        
+        // Simulate printing process
+        setTimeout(() => {
+            setPrintQueue(prev => prev.map(job => ({ ...job, status: "completed" })));
+            setIsPrinting(false);
+            toast.success("Documents sent to Block B Printer! 🖨️");
+        }, 2000);
+    };
 
     return (
         <AuthGuard>
@@ -131,27 +175,69 @@ export default function CampusEssentials() {
                                 </div>
                             </>
                         ) : (
-                            // Print Out UI Placeholder
+                            // --- PRINT OUT SECTION ---
                             <>
                                 <span className="ce-badge">Smart Printing</span>
                                 <h3>Upload & Print</h3>
-                                <p>Queue your documents here and pick them up at the Stationery Shop</p>
+                                <p>Queue your documents here and pick them up at the Stationery Shop.</p>
                                 
-                                <div style={{ 
-                                    border: '2px dashed #e0e0e0', 
-                                    borderRadius: '16px', 
-                                    height: '300px', 
-                                    display: 'flex', 
-                                    alignItems: 'center', 
-                                    justifyContent: 'center',
-                                    flexDirection: 'column',
-                                    marginTop: '2rem',
-                                    color: '#999',
-                                    background: '#f9f9f9'
-                                }}>
-                                    <Printer size={48} style={{marginBottom: '15px', opacity: 0.3}} />
-                                    <span style={{fontWeight: 600}}>Drag PDF files here</span>
-                                    <span style={{fontSize: '0.85rem', marginTop: '5px'}}>or click to browse</span>
+                                <div className="print-workspace">
+                                    {/* Upload Area */}
+                                    <div 
+                                        className="print-upload-zone"
+                                        onClick={() => fileInputRef.current?.click()}
+                                    >
+                                        <UploadCloud size={48} className="print-icon" />
+                                        <span className="print-cta">Click to upload documents</span>
+                                        <span className="print-sub">Supports PDF, DOCX (Max 10MB)</span>
+                                        <input 
+                                            type="file" 
+                                            hidden 
+                                            ref={fileInputRef} 
+                                            multiple 
+                                            accept=".pdf,.doc,.docx"
+                                            onChange={handleFileSelect}
+                                        />
+                                    </div>
+
+                                    {/* Queue List */}
+                                    {printQueue.length > 0 && (
+                                        <div className="print-queue">
+                                            <h4>Print Queue ({printQueue.length})</h4>
+                                            <div className="queue-list">
+                                                {printQueue.map(job => (
+                                                    <div key={job.id} className={`queue-item ${job.status}`}>
+                                                        <div className="queue-info">
+                                                            <FileText size={20} />
+                                                            <div>
+                                                                <span className="file-name">{job.name}</span>
+                                                                <span className="file-size">{job.size}</span>
+                                                            </div>
+                                                        </div>
+                                                        {job.status === "completed" ? (
+                                                            <span className="status-success"><CheckCircle size={18} /> Sent</span>
+                                                        ) : (
+                                                            <button 
+                                                                className="remove-queue-btn" 
+                                                                onClick={() => removeFile(job.id)}
+                                                                disabled={isPrinting}
+                                                            >
+                                                                <X size={18} />
+                                                            </button>
+                                                        )}
+                                                    </div>
+                                                ))}
+                                            </div>
+
+                                            <button 
+                                                className="print-action-btn"
+                                                onClick={handlePrintCommand}
+                                                disabled={isPrinting || printQueue.every(j => j.status === 'completed')}
+                                            >
+                                                {isPrinting ? "Processing..." : "Send to Printer (Block B)"}
+                                            </button>
+                                        </div>
+                                    )}
                                 </div>
                             </>
                         )}
@@ -162,17 +248,17 @@ export default function CampusEssentials() {
                         
                         {/* Account Status */}
                         <div className="ce-card ce-stat-card">
-                            <h4>My Library</h4>
+                            <h4>My Account</h4>
                             <div className="stat-row">
-                                <span className="stat-label">Books Borrowed</span>
+                                <span className="stat-label">Library Books</span>
                                 <span className="stat-val">2 / 4</span>
                             </div>
                             <div className="stat-row">
-                                <span className="stat-label">Due Date</span>
-                                <span className="stat-val" style={{color: '#d97706'}}>Tomorrow</span>
+                                <span className="stat-label">Print Balance</span>
+                                <span className="stat-val" style={{color: '#15803d'}}>₹120.00</span>
                             </div>
                             <div className="stat-row">
-                                <span className="stat-label">Total Fines</span>
+                                <span className="stat-label">Pending Fines</span>
                                 <span className="stat-val">₹0</span>
                             </div>
                         </div>
@@ -194,7 +280,7 @@ export default function CampusEssentials() {
                                 <div>
                                     <h4 style={{margin:0, fontSize:'1rem'}}>Closing Time</h4>
                                     <p style={{margin:'4px 0 0 0', fontSize:'0.85rem'}}>
-                                        Library is open until <strong>9:00 PM</strong> today.
+                                        Services open until <strong>9:00 PM</strong> today.
                                     </p>
                                 </div>
                             </div>
