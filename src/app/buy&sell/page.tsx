@@ -111,7 +111,7 @@ const SAMPLE_LISTINGS: Listing[] = [
     category: "Other",
     location: "Jaypee Sector 128 Campus",
     description: "Black leatherette bean bag. Filled with beans. Super comfy for gaming or studying. Pickup only.",
-    image: "https://images.unsplash.com/photo-1560155016-bd4879ae8f21?auto=format&fit=crop&q=80&w=800",
+    image: "https://imgs.search.brave.com/zp8FLwoiJIbH3o6DX-vSuizOupt2wgnCgYJydYc1y-k/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly93d3cu/YmlnYmVydGhhb3Jp/Z2luYWwuY29tL2Nk/bi9zaG9wL3Byb2R1/Y3RzL2xvdW5nZS1w/dWctaGlnaGJhY2st/Z2FtaW5nLWJlYW4t/YmFnLWNoYWlyLWNv/cmQtZ3JhcGhpdGUt/Z3JleS1iZWFuYmFn/LXVrX0xQSENCQkdS/XzAxXzY0MHg2NDBf/Y3JvcF9jZW50ZXIu/anBnP3Y9MTY0Njkx/MzgzOA",
     sellerName: "Sahil Khan",
     sellerId: "mock-seller-6",
     sellerJoined: "2021",
@@ -124,7 +124,7 @@ const SAMPLE_LISTINGS: Listing[] = [
     category: "Books",
     location: "Jaypee Sector 62 Campus",
     description: "Eric Matthes. Best book for beginners. Mint condition, no pen marks.",
-    image: "https://images.unsplash.com/photo-1555952494-efd681c7e3f9?auto=format&fit=crop&q=80&w=800",
+    image: "https://imgs.search.brave.com/RfztyJzT86Gbi-1zYNtFWdQiQ8UBIRg0LU0ez6AHbjk/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9ib29r/LXNoZWxmLnBrL2Nk/bi9zaG9wL2ZpbGVz/L3B5dGhvbi1jcmFz/aC1jb3Vyc2UtM3Jk/LWVkaXRpb24tYnkt/ZXJpYy1tYXR0aGVz/LWJvb2tzaGVsZnBr/LXBha2lzdGFuLTcy/MDY5NzguanBnP3Y9/MTc2MzA1OTU0OA",
     sellerName: "Ishita Verma",
     sellerId: "mock-seller-7",
     sellerJoined: "2024",
@@ -144,18 +144,17 @@ export default function CampusMarketplacePage() {
   const [listings, setListings] = useState<Listing[]>(SAMPLE_LISTINGS);
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
-  // States
+
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedItem, setSelectedItem] = useState<Listing | null>(null);
   
-  // Modals
+
   const [isSellModalOpen, setIsSellModalOpen] = useState(false);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [messageText, setMessageText] = useState("");
   const [isSendingMsg, setIsSendingMsg] = useState(false);
-  const [isDeleting, setIsDeleting] = useState(false); // New delete state
+  const [isDeleting, setIsDeleting] = useState(false); 
 
   // New Listing Form
   const [newListing, setNewListing] = useState({
