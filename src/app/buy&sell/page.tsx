@@ -156,7 +156,6 @@ export default function CampusMarketplacePage() {
   const [isSendingMsg, setIsSendingMsg] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false); 
 
-  // New Listing Form
   const [newListing, setNewListing] = useState({
     title: "",
     price: "",
@@ -169,7 +168,7 @@ export default function CampusMarketplacePage() {
   const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // --- Init ---
+
   useEffect(() => {
     fetchListings();
   }, []);
@@ -200,12 +199,11 @@ export default function CampusMarketplacePage() {
     }
   };
 
-  // --- Delete Functionality ---
   const handleDeleteListing = async (e: React.MouseEvent) => {
     e.stopPropagation();
     if (!selectedItem) return;
     
-    // Check if it's a mock item
+
     if (selectedItem._id.startsWith("mock-")) {
       toast.error("Cannot delete demo items.");
       return;
@@ -228,7 +226,7 @@ export default function CampusMarketplacePage() {
       if (res.ok) {
         toast.success("Listing deleted successfully");
         setListings(prev => prev.filter(l => l._id !== selectedItem._id));
-        setSelectedItem(null); // Close modal
+        setSelectedItem(null); 
       } else {
         throw new Error("Failed to delete");
       }
@@ -239,7 +237,6 @@ export default function CampusMarketplacePage() {
     }
   };
 
-  // --- Messaging ---
   const handleOpenContact = () => {
     if (!auth.currentUser) {
       toast.error("Please login to message");
