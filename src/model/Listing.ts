@@ -7,15 +7,13 @@ const ListingSchema = new Schema(
     category: { type: String, required: true },
     location: { type: String, required: true },
     description: { type: String, required: true },
-    image: { type: String, required: true }, // Stores the Cloudinary URL
+    image: { type: String, required: true }, // Cloudinary URL
     sellerName: { type: String, required: true },
-    sellerId: { type: String, required: true }, // The Firebase UID of the seller
-    sellerJoined: { type: String, default: () => new Date().getFullYear().toString() },
+    sellerId: { type: String, required: true }, // Firebase UID
+    sellerJoined: { type: String, default: "2024" },
   },
-  { timestamps: true } // Automatically adds createdAt and updatedAt
+  { timestamps: true }
 );
 
-// Check if model exists to prevent overwrite error during hot reload
 const Listing = models.Listing || model("Listing", ListingSchema);
-
 export default Listing;
