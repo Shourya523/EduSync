@@ -52,7 +52,6 @@ export default function CampusEssentials() {
     const [showPaymentModal, setShowPaymentModal] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
-    // --- Library Logic ---
     const filteredBooks = MOCK_BOOKS.filter(book => {
         const matchesSearch = book.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
                               book.author.toLowerCase().includes(searchQuery.toLowerCase());
@@ -60,7 +59,6 @@ export default function CampusEssentials() {
         return matchesSearch && matchesFilter;
     });
 
-    // --- Print Logic ---
     const totalCost = printQueue.reduce((sum, job) => sum + job.cost, 0);
 
     const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
