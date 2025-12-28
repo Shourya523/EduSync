@@ -307,6 +307,280 @@
     animation: fadeIn 0.3s ease;
 }
 
+/* ... Previous Library Styles ... */
+
+/* --- Print Section --- */
+.print-workspace {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 2rem;
+    animation: fadeIn 0.3s ease;
+}
+
+.print-upload-zone {
+    border: 2px dashed #e0e0e0;
+    border-radius: 20px;
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background: #fcfcfc;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.print-upload-zone:hover {
+    border-color: #d4a373;
+    background: #fffcf5;
+}
+
+.print-icon { color: #ccc; margin-bottom: 1rem; transition: color 0.2s; }
+.print-upload-zone:hover .print-icon { color: #d4a373; }
+
+.print-cta { font-weight: 700; font-size: 1.1rem; color: #333; }
+.print-sub { font-size: 0.85rem; color: #999; margin-top: 0.5rem; }
+
+/* Print Queue List */
+.print-queue h4 {
+    margin: 0 0 1rem 0;
+    font-size: 1rem;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.queue-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    max-height: 300px;
+    overflow-y: auto;
+    margin-bottom: 1.5rem;
+    padding-right: 5px;
+}
+
+.queue-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    transition: all 0.3s;
+}
+
+.queue-item.completed {
+    border-left: 4px solid #22c55e;
+    background: #f0fdf4;
+}
+
+.queue-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #333;
+}
+
+.file-icon-box {
+    background: #f3f4f6;
+    padding: 8px;
+    border-radius: 8px;
+    color: #666;
+}
+
+.file-name {
+    display: block;
+    font-weight: 600;
+    font-size: 0.95rem;
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.file-meta {
+    font-size: 0.75rem;
+    color: #999;
+    font-weight: 500;
+}
+
+.queue-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.type-toggle {
+    border: 1px solid #eee;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.2s;
+}
+
+.type-toggle.bw { background: #f3f4f6; color: #333; }
+.type-toggle.color { background: #fff1f2; color: #e11d48; border-color: #e11d48; }
+
+.job-cost {
+    font-weight: 800;
+    color: #1a1a1a;
+    font-size: 0.95rem;
+    min-width: 40px;
+    text-align: right;
+}
+
+.remove-queue-btn {
+    background: none;
+    border: none;
+    color: #bbb;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    transition: color 0.2s;
+}
+
+.remove-queue-btn:hover { color: #ef4444; }
+
+/* Footer & Total */
+.print-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px dashed #eee;
+    padding-top: 1.5rem;
+}
+
+.total-cost-display {
+    display: flex;
+    flex-direction: column;
+}
+
+.total-cost-display span { font-size: 0.85rem; color: #666; }
+.total-cost-display strong { font-size: 1.8rem; color: #1a1a1a; }
+
+.print-action-btn {
+    padding: 1rem 2rem;
+    background: #1a1a1a;
+    color: white;
+    border: none;
+    border-radius: 14px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.print-action-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    background: #333;
+}
+
+.print-action-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+/* --- Payment Modal --- */
+.payment-modal {
+    background: white;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 24px;
+    padding: 2rem;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+    animation: slideUp 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.payment-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.payment-header h3 { margin: 0; font-size: 1.25rem; }
+
+.payment-body {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.qr-box {
+    width: 220px;
+    height: 220px;
+    background: #f8f8f8;
+    border: 2px dashed #ddd;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 1.5rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+/* You can put a real image here later */
+.qr-placeholder-text {
+    position: absolute;
+    bottom: 10px;
+    font-size: 0.7rem;
+    color: #999;
+}
+
+.payment-total {
+    font-size: 1.1rem;
+    color: #666;
+}
+
+.payment-total span {
+    font-weight: 800;
+    color: #1a1a1a;
+    font-size: 1.4rem;
+    margin-left: 6px;
+}
+
+.confirm-pay-btn {
+    width: 100%;
+    background: #22c55e;
+    color: white;
+    border: none;
+    padding: 1rem;
+    border-radius: 14px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: transform 0.2s;
+}
+
+.confirm-pay-btn:hover {
+    transform: translateY(-2px);
+    background: #16a34a;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
