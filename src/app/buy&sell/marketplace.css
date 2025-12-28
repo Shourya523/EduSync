@@ -509,7 +509,6 @@
   margin-top: 1rem;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
-
 /* ... existing styles ... */
 
 /* Delete Button Styles */
@@ -601,6 +600,7 @@
 
 .chat-textarea {
   flex: 1;
+  width: 100%;
   border: 1px solid #eee;
   border-radius: 12px;
   padding: 16px;
@@ -646,10 +646,6 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
-
-
-.btn-submit:hover { opacity: 0.9; transform: translateY(-1px); }
-
 /* --- Responsive --- */
 @media (max-width: 1000px) {
   .detail-modal {

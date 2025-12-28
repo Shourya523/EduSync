@@ -46,7 +46,7 @@ const SAMPLE_LISTINGS: Listing[] = [
     category: "Books",
     location: "Jaypee Sector 62 Campus",
     description: "Slightly used copy. No highlighting. Must have for 1st years. Price negotiable.",
-    image: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&q=80&w=800", 
+    image: "https://imgs.search.brave.com/rOoUqTZbgOhOK0YNyhWF_aVxLI6qgdyJ9d0Je618iZ8/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9ydWtt/aW5pbTIuZmxpeGNh/cnQuY29tL2ltYWdl/LzQxNi80MTYveGlm/MHEvcmVnaW9uYWxi/b29rcy9rL3EvYy9l/bmdpbmVlcmluZy1t/YXRoZW1hdGljcy1m/b3Itc2VtZXN0ZXJz/LWktYW5kLWlpLW9s/ZC1ib29rLW9yaWdp/bmFsLWltYWd0ZjN5/OXI4YXBzMmIuanBl/Zz9xPTcwJmNyb3A9/ZmFsc2U", 
     sellerName: "Aarav Singh",
     sellerId: "mock-seller-1",
     sellerJoined: "2023",
@@ -59,13 +59,77 @@ const SAMPLE_LISTINGS: Listing[] = [
     category: "Electronics",
     location: "Jaypee Sector 128 Campus",
     description: "Original Casio calculator. Solar panel working perfectly. Cover included.",
-    image: "https://images.unsplash.com/photo-1587145820266-a5951ee1f620?auto=format&fit=crop&q=80&w=800",
+    image: "https://imgs.search.brave.com/EZ_o3BSXARm87FpCJWuOeKh9Cp121eeDKlqxQBawqpM/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9ydWtt/aW5pbTIuZmxpeGNh/cnQuY29tL2ltYWdl/LzYxMi82MTIveGlm/MHEvY2FsY3VsYXRv/ci9hLzkvci9iYXR0/ZXJ5LW9wZXJhdGVk/LW11bHRpLWZ1bmN0/aW9uLXBvY2tldC1j/YWxjdWxhdG9yLXBv/cnRhYmxlLWJsYWNr/LW9yaWdpbmFsLWlt/YWhncXE1YmtmZnc4/aDguanBlZz9xPTcw",
     sellerName: "Priya Sharma",
     sellerId: "mock-seller-2",
     sellerJoined: "2022",
     createdAt: new Date().toISOString()
   },
-  // ... (keep your other mocks if desired)
+  {
+    _id: "mock-3",
+    title: "Prestige Electric Kettle (1.5L)",
+    price: 550,
+    category: "Appliances",
+    location: "Jaypee Sector 128 Campus",
+    description: "Used for 6 months. Works perfectly. Great for making maggi/coffee in hostel. Cable included.",
+    image: "https://imgs.search.brave.com/DYYzw1z_u9eq1BiNImvSLBQv-B0Kv6FGDZgAUYxbdqE/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly81Lmlt/aW1nLmNvbS9kYXRh/NS9TRUxMRVIvRGVm/YXVsdC8yMDI0Lzkv/NDUzMTEzODExL0FU/L0dTL09RLzg3NzE2/ODkzL3ByZXN0aWdl/LWVsZWN0cmljLWtl/dHRsZS01MDB4NTAw/LmpwZw",
+    sellerName: "Karan Mehta",
+    sellerId: "mock-seller-3",
+    sellerJoined: "2023",
+    createdAt: new Date().toISOString()
+  },
+  {
+    _id: "mock-4",
+    title: "Chemistry Lab Coat & Goggles",
+    price: 250,
+    category: "Clothing",
+    location: "Jaypee Sector 62 Campus",
+    description: "White lab coat size L. Includes safety goggles. Washed and ironed. No stains.",
+    image: "https://imgs.search.brave.com/DYYzw1z_u9eq1BiNImvSLBQv-B0Kv6FGDZgAUYxbdqE/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly81Lmlt/aW1nLmNvbS9kYXRh/NS9TRUxMRVIvRGVm/YXVsdC8yMDI0Lzkv/NDUzMTEzODExL0FU/L0dTL09RLzg3NzE2/ODkzL3ByZXN0aWdl/LWVsZWN0cmljLWtl/dHRsZS01MDB4NTAw/LmpwZw",
+    sellerName: "Ananya Roy",
+    sellerId: "mock-seller-4",
+    sellerJoined: "2024",
+    createdAt: new Date().toISOString()
+  },
+  {
+    _id: "mock-5",
+    title: "Yamaha F310 Acoustic Guitar",
+    price: 4200,
+    category: "Other",
+    location: "Jaypee Sector 62 Campus",
+    description: "Good condition, slight scratch on the back but doesn't affect sound. Strings replaced last week. Comes with bag.",
+    image: "https://imgs.search.brave.com/uvKfTuwO7-3gi8jl3kSOvmR0TIE1FWrcwk6lW3molrs/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9pbWcu/Z3VtdHJlZS5jb20v/ZVBSOFB5S2Y4NHdQ/SHg3X1JZbUVhZy9j/MDk2NGExZjk1ZTQ0/NjcyYmZfMTUxNjYx/YmYyMzYxLzg2",
+    sellerName: "Dev Patel",
+    sellerId: "mock-seller-5",
+    sellerJoined: "2022",
+    createdAt: new Date().toISOString()
+  },
+  {
+    _id: "mock-6",
+    title: "Comfy Bean Bag (XXL)",
+    price: 900,
+    category: "Other",
+    location: "Jaypee Sector 128 Campus",
+    description: "Black leatherette bean bag. Filled with beans. Super comfy for gaming or studying. Pickup only.",
+    image: "https://images.unsplash.com/photo-1560155016-bd4879ae8f21?auto=format&fit=crop&q=80&w=800",
+    sellerName: "Sahil Khan",
+    sellerId: "mock-seller-6",
+    sellerJoined: "2021",
+    createdAt: new Date().toISOString()
+  },
+  {
+    _id: "mock-7",
+    title: "Python Crash Course - 2nd Ed",
+    price: 350,
+    category: "Books",
+    location: "Jaypee Sector 62 Campus",
+    description: "Eric Matthes. Best book for beginners. Mint condition, no pen marks.",
+    image: "https://images.unsplash.com/photo-1555952494-efd681c7e3f9?auto=format&fit=crop&q=80&w=800",
+    sellerName: "Ishita Verma",
+    sellerId: "mock-seller-7",
+    sellerJoined: "2024",
+    createdAt: new Date().toISOString()
+  }
 ];
 
 const SUGGESTED_MESSAGES = [
