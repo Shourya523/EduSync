@@ -27,7 +27,8 @@ from qdrant_client.models import (
     MatchValue,
 )
 
-from google import genai
+import google.generativeai as genai
+
 
 app = FastAPI(title="RAG Backend API", version="2.0.0")
 
