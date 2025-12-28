@@ -135,7 +135,7 @@ export default function CampusEssentials() {
                             <>
                                 <span className="ce-badge">Smart Printing</span>
                                 <h3>Upload & Print</h3>
-                                <p>Queue your documents here and pick them up at the Block B kiosk. No more fighting for the USB port.</p>
+                                <p>Queue your documents here and pick them up at the Stationery Shop</p>
                                 
                                 <div style={{ 
                                     border: '2px dashed #e0e0e0', 
