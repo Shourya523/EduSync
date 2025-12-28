@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import "./essential.css";
 import AuthGuard from "@/src/components/AuthGuard";
-import { Search, MapPin, BookOpen, Printer, Clock, AlertCircle, FileText, X, CheckCircle, UploadCloud, IndianRupee, QrCode } from "lucide-react";
+import { Search, MapPin, BookOpen, Printer, Clock, AlertCircle, FileText, X, CheckCircle, UploadCloud, IndianRupee, QrCode, Sparkles } from "lucide-react";
 import { toast } from "react-toastify";
 
 // --- Types ---
@@ -22,7 +22,7 @@ interface PrintJob {
     id: string;
     name: string;
     size: string;
-    pages: number; // Mocked page count
+    pages: number; 
     type: "bw" | "color";
     cost: number;
     status: "queued" | "processing" | "completed";
@@ -61,22 +61,18 @@ export default function CampusEssentials() {
     });
 
     // --- Print Logic ---
-    
-    // Calculate total cost of queue
     const totalCost = printQueue.reduce((sum, job) => sum + job.cost, 0);
 
     const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files.length > 0) {
             const newFiles: PrintJob[] = Array.from(e.target.files).map(file => {
-                // Mocking page detection (random 1-20 pages)
                 const mockPages = Math.floor(Math.random() * 15) + 1;
-                
                 return {
                     id: Math.random().toString(36).substr(2, 9),
                     name: file.name,
                     size: (file.size / 1024 / 1024).toFixed(2) + " MB",
                     pages: mockPages,
-                    type: "bw", // Default to Black & White
+                    type: "bw", 
                     cost: mockPages * COST_BW,
                     status: "queued"
                 };
@@ -86,10 +82,10 @@ export default function CampusEssentials() {
         }
     };
 
-    const togglePrintType = (id: string) => {
+    const updatePrintType = (id: string, newType: "bw" | "color") => {
         setPrintQueue(prev => prev.map(job => {
             if (job.id === id) {
-                const newType = job.type === "bw" ? "color" : "bw";
+                if (job.type === newType) return job;
                 const newCost = job.pages * (newType === "bw" ? COST_BW : COST_COLOR);
                 return { ...job, type: newType, cost: newCost };
             }
@@ -99,18 +95,16 @@ export default function CampusEssentials() {
 
     const removeFile = (id: string) => {
         setPrintQueue(printQueue.filter(job => job.id !== id));
-        toast.info("File removed from queue");
+        toast.info("File removed");
     };
 
     const handlePaymentSuccess = () => {
         setIsPrinting(true);
         setShowPaymentModal(false);
-        
-        // Simulate printing process
         setTimeout(() => {
             setPrintQueue(prev => prev.map(job => ({ ...job, status: "completed" })));
             setIsPrinting(false);
-            toast.success("Payment Received! Printing started at Block B.");
+            toast.success("Payment Received! Printing started.");
         }, 2000);
     };
 
@@ -138,7 +132,6 @@ export default function CampusEssentials() {
                 </nav>
 
                 <div className="ce-bento-layout">
-                    
                     <div className="ce-card ce-main-portal">
                         {activeTab === "Library" ? (
                             <>
@@ -154,9 +147,7 @@ export default function CampusEssentials() {
                                         value={searchQuery}
                                         onChange={(e) => setSearchQuery(e.target.value)}
                                     />
-                                    <button className="ce-submit-btn">
-                                        <Search size={20} />
-                                    </button>
+                                    <button className="ce-submit-btn"><Search size={20} /></button>
                                 </div>
 
                                 <div className="lib-filters">
@@ -199,14 +190,12 @@ export default function CampusEssentials() {
                                 </div>
                             </>
                         ) : (
-                            // --- PRINT OUT SECTION ---
                             <>
                                 <span className="ce-badge">Smart Printing</span>
                                 <h3>Upload & Print</h3>
                                 <p>Queue your documents here. <strong>₹5/page (B&W)</strong> • <strong>₹10/page (Color)</strong></p>
                                 
                                 <div className="print-workspace">
-                                    {/* Upload Area */}
                                     <div 
                                         className="print-upload-zone"
                                         onClick={() => fileInputRef.current?.click()}
@@ -224,13 +213,15 @@ export default function CampusEssentials() {
                                         />
                                     </div>
 
-                                    {/* Queue List */}
                                     {printQueue.length > 0 && (
                                         <div className="print-queue">
                                             <h4>Print Queue ({printQueue.length})</h4>
                                             <div className="queue-list">
                                                 {printQueue.map(job => (
-                                                    <div key={job.id} className={`queue-item ${job.status}`}>
+                                                    <div 
+                                                        key={job.id} 
+                                                        className={`queue-item ${job.status} ${job.type}`}
+                                                    >
                                                         <div className="queue-info">
                                                             <div className="file-icon-box">
                                                                 <FileText size={20} />
@@ -247,14 +238,20 @@ export default function CampusEssentials() {
                                                             <span className="status-success"><CheckCircle size={18} /> Printed</span>
                                                         ) : (
                                                             <div className="queue-actions">
-                                                                {/* Type Toggle */}
-                                                                <button 
-                                                                    className={`type-toggle ${job.type}`}
-                                                                    onClick={() => togglePrintType(job.id)}
-                                                                    title="Toggle Color/B&W"
+                                                                
+                                                                {/* --- NEW SLIDER TOGGLE --- */}
+                                                                <div 
+                                                                    className={`print-toggle-slider ${job.type}`}
+                                                                    onClick={() => updatePrintType(job.id, job.type === 'bw' ? 'color' : 'bw')}
+                                                                    title="Click to toggle B&W / Color"
                                                                 >
-                                                                    {job.type === "bw" ? "B&W" : "Color"}
-                                                                </button>
+                                                                    <div className="toggle-knob">
+                                                                        {job.type === 'color' && <Sparkles size={14} strokeWidth={2.5} />}
+                                                                    </div>
+                                                                    {/* Text changes based on state */}
+                                                                    <span className="toggle-text right">Color</span>
+                                                                    <span className="toggle-text left">B&W</span>
+                                                                </div>
                                                                 
                                                                 <span className="job-cost">₹{job.cost}</span>
                                                                 
@@ -271,7 +268,6 @@ export default function CampusEssentials() {
                                                 ))}
                                             </div>
 
-                                            {/* Footer Actions */}
                                             <div className="print-footer">
                                                 <div className="total-cost-display">
                                                     <span>Total to Pay:</span>
@@ -292,7 +288,6 @@ export default function CampusEssentials() {
                         )}
                     </div>
 
-                    {/* RIGHT COLUMN */}
                     <div className="ce-sidebar-col">
                         <div className="ce-card ce-stat-card">
                             <h4>My Account</h4>
@@ -317,7 +312,6 @@ export default function CampusEssentials() {
                     </div>
                 </div>
 
-                {/* --- PAYMENT MODAL --- */}
                 {showPaymentModal && (
                     <div className="modal-overlay" onClick={() => setShowPaymentModal(false)}>
                         <div className="payment-modal" onClick={e => e.stopPropagation()}>
@@ -331,7 +325,6 @@ export default function CampusEssentials() {
                             <div className="payment-body">
                                 <p>Scan to pay for {printQueue.length} document(s)</p>
                                 <div className="qr-box">
-                                    {/* Replace with your actual QR image */}
                                     <QrCode size={180} style={{opacity: 0.1}} /> 
                                     <span className="qr-placeholder-text">Valid for 5:00 min</span>
                                 </div>
