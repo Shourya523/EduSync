@@ -67,16 +67,14 @@ export default function CampusEssentials() {
                     </button>
                 </nav>
 
-                {/* Main Content Grid */}
                 <div className="ce-bento-layout">
                     
-                    {/* LEFT COLUMN: Main Tool */}
                     <div className="ce-card ce-main-portal">
                         {activeTab === "Library" ? (
                             <>
                                 <span className="ce-badge">Live Catalog</span>
                                 <h3>Book Finder</h3>
-                                <p>Locate books instantly. Check availability before you walk to the basement.</p>
+                                <p>Locate books instantly. Check availability before you walk to the LRC.</p>
                                 
                                 <div className="ce-input-group">
                                     <input 
