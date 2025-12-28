@@ -9,7 +9,7 @@ export default function EssentialsLayout({
   return (
     <div style={{ display: "flex", minHeight: "100vh", backgroundColor: "#ffffff" }}>
       <SideBar />
-      <main style={{ flex: 1, marginLeft: "100px", padding: "0", boxSizing: "border-box" }}>
+      <main style={{ flex: 1, marginLeft: "-300px",marginTop:"20px" , padding: "0", boxSizing: "border-box" }}>
         {children}
       </main>
     </div>
