@@ -1,8 +1,6 @@
 "use client"
 
 import { useEffect } from "react"
-import L from "leaflet"
-import "leaflet/dist/leaflet.css"
 
 interface PlaceholderMapProps {
   center?: [number, number]
@@ -14,16 +12,47 @@ export default function PlaceholderMap({
   zoom = 12,
 }: PlaceholderMapProps) {
   useEffect(() => {
-    const map = L.map("carbuddy-map", {
-      zoomControl: false,
-      attributionControl: false,
-      scrollWheelZoom: false,
-    }).setView(center, zoom)
+    let mounted = true
 
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map)
+    ;(async () => {
+      if (!mounted) return
+      const L = await import("leaflet")
+      await import("leaflet/dist/leaflet.css")
+
+      const el = document.getElementById("carbuddy-map")
+      // If a map instance was previously attached to the element, remove it first
+      if (el && (el as any).__leaflet_map) {
+        try {
+          (el as any).__leaflet_map.remove()
+        } catch (e) {
+          // ignore removal errors
+        }
+        delete (el as any).__leaflet_map
+      }
+
+      const map = L.map("carbuddy-map", {
+        zoomControl: false,
+        attributionControl: false,
+        scrollWheelZoom: false,
+      }).setView(center, zoom)
+
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map)
+
+      // store instance on element for later cleanup
+      if (el) (el as any).__leaflet_map = map
+    })()
 
     return () => {
-      map.remove()
+      mounted = false
+      const el = document.getElementById("carbuddy-map")
+      if (el && (el as any).__leaflet_map) {
+        try {
+          (el as any).__leaflet_map.remove()
+        } catch (e) {
+          /* ignore */
+        }
+        delete (el as any).__leaflet_map
+      }
     }
   }, [center, zoom])
 
