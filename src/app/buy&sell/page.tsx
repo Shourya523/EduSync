@@ -282,7 +282,6 @@ export default function CampusMarketplacePage() {
     }
   };
 
-  // --- Form Handlers (Add Listing) ---
   const handleAddListing = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedImageFile) return toast.warn("Image required");
@@ -317,7 +316,6 @@ export default function CampusMarketplacePage() {
     }
   };
 
-  // Helpers
   const handleShare = (item: Listing) => {
     const url = `${window.location.origin}/campus-marketplace?item=${item._id}`;
     navigator.clipboard.writeText(url);
@@ -341,7 +339,6 @@ export default function CampusMarketplacePage() {
   return (
     <AuthGuard>
       <div className="marketplace-container">
-        {/* Header */}
         <header className="marketplace-header">
           <div>
             <h1>Campus<span>Marketplace</span></h1>
@@ -364,7 +361,6 @@ export default function CampusMarketplacePage() {
           </div>
         </header>
 
-        {/* Categories */}
         <div className="category-filter">
           {CATEGORIES.map(cat => (
             <button 
@@ -377,7 +373,7 @@ export default function CampusMarketplacePage() {
           ))}
         </div>
 
-        {/* Grid */}
+
         {isLoading ? (
           <div style={{ display: 'flex', justifyContent: 'center', padding: '4rem' }}>
             <Loader2 className="spinner" size={40} />
@@ -404,7 +400,6 @@ export default function CampusMarketplacePage() {
           </div>
         )}
 
-        {/* DETAIL POPUP */}
         {selectedItem && (
           <div className="modal-overlay" style={{ zIndex: 10000 }} onClick={() => setSelectedItem(null)}>
             <div className="detail-modal" onClick={(e) => e.stopPropagation()}>
@@ -461,12 +456,10 @@ export default function CampusMarketplacePage() {
           </div>
         )}
 
-        {/* BETTER CHAT MODAL */}
         {isContactModalOpen && selectedItem && (
           <div className="modal-overlay" style={{ zIndex: 10002 }} onClick={() => setIsContactModalOpen(false)}>
             <div className="sell-form-container" style={{ maxWidth: '450px', height: 'auto', padding: '0' }} onClick={(e) => e.stopPropagation()}>
-              
-              {/* Header */}
+
               <div className="form-header" style={{ padding: '20px 24px', borderBottom: '1px solid #f0f0f0', marginBottom: 0 }}>
                 <h2 style={{ fontSize: '1.2rem' }}>Contact Seller</h2>
                 <button onClick={() => setIsContactModalOpen(false)} style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
