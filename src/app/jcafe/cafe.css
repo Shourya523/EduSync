@@ -340,7 +340,6 @@
     }
 }
 
-/* 3. Mobile (Max Width 768px) */
 @media (max-width: 768px) {
     .jcafe-container {
         padding: 1.5rem;
@@ -350,8 +349,6 @@
     .jcafe-header h1 {
         font-size: 2.5rem;
     }
-
-    /* Reset columns for mobile */
     .jcafe-left-col {
         display: flex;
         flex-direction: column;
@@ -362,15 +359,14 @@
         grid-template-columns: 1fr 1fr;
     }
 
-    /* CART BEHAVIOR ON MOBILE */
-    /* Disable the content shifting, just overlay the cart */
+
     .jcafe-container.is-shifted {
-        padding-right: 1.5rem; /* Keep original padding */
-        filter: blur(2px); /* Optional: blur content behind cart */
+        padding-right: 1.5rem;
+        filter: blur(2px);
     }
 
     .jcafe-sidebar {
-        width: 100%; /* Full width */
+        width: 100%; 
         right: -100%;
     }
 }
