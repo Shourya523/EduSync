@@ -1,10 +1,9 @@
-/* ... existing styles preserved ... */
 
 .timetable-container {
   max-width: 1200px;
   margin: 0 auto;
   padding-bottom: 4rem;
-  width: 100%; /* Ensure it doesn't exceed parent */
+  width: 100%; 
   box-sizing: border-box;
 }
 
@@ -441,22 +440,15 @@
   color: #d4a23a;
 }
 
-
-/* --- Updated Media Queries --- */
-
-/* 1. Laptop/Desktop Tweaks (100% Zoom) */
-/* When screen width is constrained by sidebar, tighten the gaps slightly */
 @media (max-width: 1300px) {
   .subject-card {
-    /* Slightly reduce the preference/importance columns */
     grid-template-columns: 1.5fr 1fr 1fr 0.6fr; 
     gap: 1rem;
     padding: 1rem;
   }
 }
 
-/* 2. Tablet / Small Laptop */
-/* Switch to 2-row layout */
+
 @media (max-width: 1000px) {
   .config-section {
     grid-template-columns: 1fr;
@@ -464,22 +456,16 @@
   }
   
   .subject-card {
-    /* 2 Columns, 2 Rows */
-    /* Row 1: Subject Name (spans 2) */
-    /* Row 2: Preference | Importance | MinHours (This needs 3 cols or wrap) */
-    /* Let's try a clean 2x2 grid */
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto auto auto;
     gap: 1rem;
     align-items: center;
   }
   
-  /* Subject Name takes full top row */
   .field-wrapper:nth-child(1) {
     grid-column: span 2;
   }
   
-  /* Preference takes left, Importance takes right */
   .field-wrapper:nth-child(2) {
     grid-column: span 1;
   }
@@ -487,16 +473,12 @@
     grid-column: span 1;
   }
 
-  /* Min Hours takes full width or half? Let's make it span 2 for clarity */
   .field-wrapper:nth-child(4) {
     grid-column: span 2;
   }
   
-  /* Or if you prefer MinHours to share a row, you'd need a different grid */
 }
 
-/* 3. Mobile */
-/* Stack everything vertically */
 @media (max-width: 650px) {
   .timetable-header h1 {
     font-size: 2rem;
@@ -513,7 +495,6 @@
     gap: 1rem;
   }
   
-  /* Reset grid spans */
   .field-wrapper:nth-child(1),
   .field-wrapper:nth-child(4) {
     grid-column: auto;
