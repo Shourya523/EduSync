@@ -2,15 +2,12 @@
 import "./HomePage.css";
 import { useEffect, useState } from "react";
 import {
-    ArrowRight,
     CheckCircle,
     LayoutDashboard,
     CalendarRange,
-    Library,
     Coffee,
     ShoppingBag,
     BellRing,
-    Sparkles,
     XCircle,
     BookOpenText,
     FolderHeart
@@ -36,10 +33,6 @@ export default function HomePage() {
                     personalized digital shelves, lecture notes, and seamless campus services from J-Cafe to Essentials.
                 </p>
                 <div className={`hero-actions fade-up${fade ? ' visible' : ''}`}>
-                    <button className="btn btn-primary-home" onClick={() => setShowDisclaimer(true)}>
-                        Get Started Now <ArrowRight size={16} />
-                    </button>
-                    <button className="btn btn-secondary-demo-dashboard" >Explore My Shelf</button>
                 </div>
             </section>
             
@@ -207,14 +200,6 @@ export default function HomePage() {
                 <p className="fade-up visible">
                     Join thousands of students who have upgraded their academic workflow with EduSync.
                 </p>
-                <div className={`cta-actions fade-up${fade ? ' visible' : ''}`}>
-                    <button className="btn btn-cta-primary">
-                        Sign Up for Free <ArrowRight size={16} />
-                    </button>
-                    <button className="btn btn-cta-secondary">
-                        Visit Dashboard
-                    </button>
-                </div>
             </section>
         </>
     );

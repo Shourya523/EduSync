@@ -37,12 +37,6 @@ export default function HomePage() {
                     A unified platform for modern students. Manage your academic life with AI-generated timetables, 
                     personalized digital shelves, lecture notes, and seamless campus services from J-Cafe to Essentials.
                 </p>
-                <div className={`hero-actions fade-up${fade ? ' visible' : ''}`}>
-                    <button className="btn btn-primary-home" onClick={() => setShowDisclaimer(true)}>
-                        Get Started Now <ArrowRight size={16} />
-                    </button>
-                    <button className="btn btn-secondary-demo-dashboard" >Explore My Shelf</button>
-                </div>
             </section>
             
             <section className="features-section">
@@ -209,14 +203,6 @@ export default function HomePage() {
                 <p className="fade-up visible">
                     Join thousands of students who have upgraded their academic workflow with EduSync.
                 </p>
-                <div className={`cta-actions fade-up${fade ? ' visible' : ''}`}>
-                    <button className="btn btn-cta-primary">
-                        Sign Up for Free <ArrowRight size={16} />
-                    </button>
-                    <button className="btn btn-cta-secondary">
-                        Visit Dashboard
-                    </button>
-                </div>
             </section>
         </>
     );
