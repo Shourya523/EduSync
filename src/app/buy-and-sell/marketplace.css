@@ -666,7 +666,6 @@
   }
 }
 
-/* 2. Tablets / Small Screens */
 @media (max-width: 1100px) {
   .marketplace-header {
     flex-direction: column;
@@ -683,7 +682,6 @@
     width: auto;
   }
   
-  /* Modal Response */
   .detail-modal {
     grid-template-columns: 1fr;
     height: 90vh;
@@ -691,18 +689,17 @@
   }
   
   .modal-left {
-    height: 300px; /* Limit image height */
+    height: 300px; 
     border-right: none;
     border-bottom: 1px solid #f0f0f0;
   }
   
   .modal-right {
     padding: 2rem;
-    overflow-y: visible; /* Let container scroll */
+    overflow-y: visible; 
   }
 }
 
-/* 3. Mobile */
 @media (max-width: 768px) {
   .marketplace-header h1 {
     font-size: 2rem;
@@ -723,7 +720,7 @@
   }
   
   .items-grid {
-    grid-template-columns: 1fr; /* Single column */
+    grid-template-columns: 1fr; 
   }
   
   .sell-form-container {
