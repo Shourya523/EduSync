@@ -76,7 +76,6 @@
   box-shadow: 0 6px 16px rgba(0,0,0,0.15);
 }
 
-/* Action Buttons in Table */
 .shelf-action {
   display: flex;
   justify-content: flex-end;

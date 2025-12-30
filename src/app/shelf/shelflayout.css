@@ -30,12 +30,11 @@ body {
 }
 
 .shelf-main {
-  flex: 1; /* Automatically takes remaining width */
+  flex: 1;
   width: 100%;
-  min-width: 0; /* Prevents flex overflow */
+  min-width: 0;
   padding: 2.5rem 3rem;
   box-sizing: border-box;
   transition: padding 0.25s ease;
 }
 
-/* Sidebar logic is handled by flexbox, manual margins are not needed */
