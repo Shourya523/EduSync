@@ -1,5 +1,5 @@
 .carbuddy-dashboard-root {
-  padding: 1.5rem 0; /* Let layout handle horizontal padding */
+  padding: 1.5rem 0;
   max-width: 1400px;
   margin: 0 auto;
   min-height: 100vh;
@@ -44,12 +44,12 @@
   background: #f0f0f0;
 }
 
-/* --- Bento Grid --- */
+
 
 .carbuddy-bento-layout {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  /* Allow rows to size automatically based on content */
+
   grid-auto-rows: minmax(180px, auto);
   gap: 1.5rem;
 }
@@ -247,7 +247,7 @@
   overflow-y: auto;
   flex: 1;
   padding-right: 4px;
-  max-height: 400px; /* Ensure it scrolls within reasonable height */
+  max-height: 400px; 
 }
 
 .carbuddy-ride-item {
@@ -478,36 +478,30 @@
   border-radius: 14px;
 }
 .carbuddy-map-tile {
-  margin-top: 0; /* Reset */
+  margin-top: 0; 
 }
 
 
-/* --- Media Queries --- */
-
-/* 1. Laptop/Desktop Tweaks (100% Zoom) */
 @media (max-width: 1400px) {
   .carbuddy-bento-layout {
     gap: 1rem;
   }
 }
 
-/* 2. Tablet / Small Laptop */
 @media (max-width: 1100px) {
   .carbuddy-bento-layout {
     grid-template-columns: repeat(2, 1fr);
   }
-  
-  /* Hero takes full top row (2 cols) */
+
   .carbuddy-hero-tile {
     grid-column: span 2;
   }
-  
-  /* Ride list takes full width below (2 cols) */
+
   .carbuddy-tile-wide {
     grid-column: span 2;
   }
   
-  /* Stats share a row */
+
   .carbuddy-stat-tile {
     grid-column: span 1;
   }
@@ -517,7 +511,6 @@
   }
 }
 
-/* 3. Mobile */
 @media (max-width: 768px) {
   .carbuddy-main-header {
     flex-direction: column;
