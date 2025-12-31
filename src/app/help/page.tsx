@@ -3,6 +3,7 @@ import { useState } from "react";
 import "./help.css";
 import { Upload, AlertTriangle, CheckCircle, Clock, MapPin, Camera } from "lucide-react";
 import { toast } from "react-toastify"; // Assumes you have ToastContainer in layout
+import AuthGuard from "@/src/components/AuthGuard";
 
 type StatusType = "Pending" | "In Progress" | "Resolved";
 
@@ -65,6 +66,7 @@ export default function HelpPage() {
     };
 
     return (
+        <AuthGuard>
         <section className="help-container">
             <header className="help-header">
                 <h1>Help & <span>Support</span></h1>
@@ -175,5 +177,6 @@ export default function HelpPage() {
 
             </div>
         </section>
+        </AuthGuard>
     );
 }

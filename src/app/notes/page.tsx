@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import "./page.css";
 import UploadFileButton from "@/src/components/UploadFile";
 import ChatBox from "@/src/components/ChatBoxNotes";
+import AuthGuard from "@/src/components/AuthGuard";
 
 export default function NotesPage() {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -28,6 +29,7 @@ export default function NotesPage() {
     }, [selectedFile]);
 
     return (
+        <AuthGuard>
         <section className="notes-page">
             <div className="notes-header">
                 <h1>
@@ -125,5 +127,6 @@ export default function NotesPage() {
 
             <ChatBox selectedFile={selectedFile} setSelectedFile={setSelectedFile} />
         </section>
+        </AuthGuard>
     );
 }

@@ -6,6 +6,7 @@ import "./car-buddy.css"
 import ChatWindow from "@/src/components/ChatWindow"
 import CarpoolHero from "@/src/components/CarpoolHero"
 import PlaceholderMap from "@/src/components/PlaceholderMap"
+import AuthGuard from "@/src/components/AuthGuard"
 
 interface Ride {
   id: string
@@ -51,6 +52,7 @@ export default function CarpoolPage() {
     .sort((a, b) => a.distance - b.distance)
 
   return (
+    <AuthGuard>
     <section className="carbuddy-dashboard-root">
       <header className="carbuddy-main-header">
         <div className="carbuddy-welcome-container">
@@ -132,5 +134,6 @@ export default function CarpoolPage() {
         />
       )}
     </section>
+    </AuthGuard>
   )
 }
