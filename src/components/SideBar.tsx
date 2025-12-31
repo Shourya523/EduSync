@@ -3,17 +3,17 @@
 import { useState, useEffect } from "react";
 import "./SideBar.css";
 import {
-    LayoutGrid, LayoutDashboard, FilePlus2, NotebookText, Bell, Coffee, Briefcase, HelpCircle, Menu, User2Icon, Car, DollarSign 
+    LayoutGrid, LayoutDashboard, FilePlus2, NotebookText, Bell, Coffee, Briefcase, HelpCircle, Menu, User2Icon, Car, DollarSign
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import SignOutButton from "./SignOutButton";
-import ProfileButton from "./ProfileButton"; 
-import ProfileModal from "./ProfileModal"; 
+import ProfileButton from "./ProfileButton";
+import ProfileModal from "./ProfileModal";
 
 export default function SideBar() {
     const [collapsed, setCollapsed] = useState(false);
-    const [isProfileOpen, setIsProfileOpen] = useState(false); 
+    const [isProfileOpen, setIsProfileOpen] = useState(false);
     const pathname = usePathname();
 
     useEffect(() => {
@@ -28,16 +28,16 @@ export default function SideBar() {
     };
 
     const navItems = [
-       { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-       { label: "Timetable", href: "/timetable", icon: FilePlus2 },
-       { label: "Notes.Co", href: "/notes", icon: NotebookText },
-       { label: "My Shelf", href: "/shelf", icon: User2Icon },
-       { label: "Buy & Sell", href: "/buy-and-sell", icon: DollarSign  },
-       { label: "JCafe", href: "/jcafe", icon: Coffee },
-       { label: "CarBuddy", href: "/car-buddy", icon: Car },
-       { label: "Campus Essentials", href: "/essentialServices", icon: Briefcase },
-       { label: "Announcements", href: "/announcements", icon: Bell },
-       { label: "Help", href: "/help", icon: HelpCircle },
+        { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
+        { label: "CarBuddy", href: "/car-buddy", icon: Car },
+        { label: "Notes.Co", href: "/notes", icon: NotebookText },
+        { label: "My Shelf", href: "/shelf", icon: User2Icon },
+        { label: "Timetable", href: "/timetable", icon: FilePlus2 },
+        { label: "Buy & Sell", href: "/buy-and-sell", icon: DollarSign },
+        { label: "JCafe", href: "/jcafe", icon: Coffee },
+        { label: "Campus Essentials", href: "/essentialServices", icon: Briefcase },
+        { label: "Announcements", href: "/announcements", icon: Bell },
+        { label: "Help", href: "/help", icon: HelpCircle },
     ];
 
     return (
@@ -65,11 +65,11 @@ export default function SideBar() {
                         })}
                     </ul>
                 </nav>
-                
+
                 <div className="sidebar-utils">
-                    <ProfileButton 
-                        collapsed={collapsed} 
-                        onClick={() => setIsProfileOpen(true)} 
+                    <ProfileButton
+                        collapsed={collapsed}
+                        onClick={() => setIsProfileOpen(true)}
                     />
                     <SignOutButton collapsed={collapsed} />
                 </div>
@@ -82,9 +82,9 @@ export default function SideBar() {
                 </div>
             </aside>
 
-            <ProfileModal 
-                isOpen={isProfileOpen} 
-                onClose={() => setIsProfileOpen(false)} 
+            <ProfileModal
+                isOpen={isProfileOpen}
+                onClose={() => setIsProfileOpen(false)}
             />
         </>
     );
